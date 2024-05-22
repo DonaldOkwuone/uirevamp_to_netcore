@@ -1,0 +1,80 @@
+body {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 14px;
+}
+
+.organization-background {
+    background: white url(../../images/header-bg.png) 135px 22px repeat;
+    background-size: cover;
+}
+
+.header-primary {
+	color: #c0143c;
+}
+
+a.header-secondary, header-secondary{
+	color: #000 !important;
+}
+
+.text-nounderline {
+	text-decoration: none !important;
+}
+
+.logo-header-text{
+	font-size: 36px;
+}
+
+.fa {
+	color: black;  
+}
+
+.navbar {
+	padding: 0px;
+	border: 1px solid;
+}
+
+.navbar-nav {
+	margin-left: 8px;
+}
+
+.navbar-nav li:hover {
+	background-color: #c0143c;
+}
+
+.navbar-nav li a {
+	color: #121416;
+}
+
+.navbar-nav li:hover > a {
+	color: white;
+}
+
+.nav-item {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+.breadcrumb {
+	background-color: white;
+}
+
+.breadcrumb li a {
+	color: #121416;
+}
+
+.dropdown-item:hover {
+	background-color: #c0143c;
+	color: white;
+}
+
+.disabled {
+	color: #aaa;
+}
+
+.popover {
+	max-width: 400px;
+}
+
+.releaseHeader {
+	text-align: center;
+}

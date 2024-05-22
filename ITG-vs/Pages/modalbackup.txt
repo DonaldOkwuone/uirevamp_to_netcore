@@ -1,0 +1,66 @@
+                <asp:Button ID="btnDummy" Style="display: none" aria-label="DummyButton"   value="#" Text="" runat="server" />
+                <ajaxToolkit:ModalPopupExtender ID="RFAMPE1" runat="server"
+                    TargetControlID="btnDummy"
+                    PopupControlID="pnlModelPopUp"
+                    BackgroundCssClass="ModalPopupBG"
+                    CancelControlID="btnCancel"
+                    OnCancelScript="handleSendEmailCancel()"
+                    PopupDragHandleControlID="PopupHeader">
+                </ajaxToolkit:ModalPopupExtender>
+                <script type="text/javascript">
+                    function handleSendEmailCancel() {
+                        window.history.back();
+                    }
+                </script>
+               <link rel="stylesheet" type="text/css" href="standards/css/modalStyles.css" />
+                <asp:Panel ID="pnlModelPopUp" class="ModalBox" runat="server">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Send Email Invite, ITG</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>       
+                                Invite will be sent to the email provided below with the selected milestone date.
+                                <br />
+                                <br />
+                                    <span style="color: Red">* </span>: required field                              
+                                <br />
+                                <br />
+                                <label class="control-label"> Timeline: </label>
+                                <asp:Label ID="lblTimelineTitle" runat="server"></asp:Label>
+                                <br />
+                                <label class="control-label">Date: </label>
+                                <asp:Label ID="lblTimelineDate" runat="server"></asp:Label>
+                                <br />
+                            </p>
+                            <p>
+                                <span style="color: Red">*</span>
+                                    <label class="control-label" for="txtTitle"> RFA/RFP title </label>
+                                    <asp:TextBox ID="txtTitle" class="form-control" runat="server" Width="190" TabIndex="1"></asp:TextBox>
+                                    <br />
+                                <span style="color: Red">*</span>
+                                    <label class="control-label" for="txtName"> Your name </label>
+                                    <asp:TextBox ID="txtName" class="form-control" runat="server" Width="190" TabIndex="2"></asp:TextBox>
+                                    <br />
+                                <span style="color: Red">*</span>
+                                    <label class="control-label" for="txtEmail"> Your email address </label>
+                                    <asp:TextBox ID="txtEmail" class="form-control" runat="server" Width="190" TabIndex="3"></asp:TextBox>
+                                    <br />
+                            </p>
+                            <div class="modal-footer">
+                                <asp:Button ID="btnSend" class="btn btn-default" runat="server" Text="Send Invite" CausesValidation="true" OnClick="SendEmailInvite" />
+                                <input type="button" class="btn btn-default" value="Cancel" id="btnCancel" />                              
+                                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="txtTitle" ErrorMessage="RFA title is required" Display="none"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvName" runat="server" ControlToValidate="txtName" ErrorMessage="Name is required" Display="None"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email address is required" Display="None"></asp:RequiredFieldValidator>
+                                <asp:RegularExpressionValidator ID="reEmail" runat="server"
+                                    ControlToValidate="txtEmail" ErrorMessage="Email address is not valid"
+                                    Display="None"
+                                    ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                                <br />
+                                <asp:Label ID="lblErrorMessage" runat="server" Font-Bold="True"></asp:Label>
+                                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowSummary="true" />
+                            </div>
+                        </div>
+                    </div>
+                </asp:Panel>

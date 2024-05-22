@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34902.65
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITG_upgraded", "ITG_upgraded\ITG_upgraded.csproj", "{1A2FBFD8-4057-487D-80A8-A37D236A574E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITG-vs", "ITG-vs\ITG-vs.csproj", "{7EF183B3-D380-41CC-8D0F-799817892B60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A2FBFD8-4057-487D-80A8-A37D236A574E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A2FBFD8-4057-487D-80A8-A37D236A574E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A2FBFD8-4057-487D-80A8-A37D236A574E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A2FBFD8-4057-487D-80A8-A37D236A574E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EF183B3-D380-41CC-8D0F-799817892B60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EF183B3-D380-41CC-8D0F-799817892B60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EF183B3-D380-41CC-8D0F-799817892B60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EF183B3-D380-41CC-8D0F-799817892B60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06E1B615-5626-46C7-9780-537A149BE6C8}
+	EndGlobalSection
+EndGlobal
