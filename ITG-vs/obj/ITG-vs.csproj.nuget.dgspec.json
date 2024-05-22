@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG-vs.csproj": {}
+    "C:\\Users\\chukwuemeka.owora\\Desktop\\dotNET\\uirevamp_to_netcore\\ITG-vs\\ITG-vs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG-vs.csproj": {
+    "C:\\Users\\chukwuemeka.owora\\Desktop\\dotNET\\uirevamp_to_netcore\\ITG-vs\\ITG-vs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG-vs.csproj",
+        "projectUniqueName": "C:\\Users\\chukwuemeka.owora\\Desktop\\dotNET\\uirevamp_to_netcore\\ITG-vs\\ITG-vs.csproj",
         "projectName": "ITG-vs",
-        "projectPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG-vs.csproj",
-        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\obj\\",
+        "projectPath": "C:\\Users\\chukwuemeka.owora\\Desktop\\dotNET\\uirevamp_to_netcore\\ITG-vs\\ITG-vs.csproj",
+        "packagesPath": "C:\\Users\\chukwuemeka.owora\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\chukwuemeka.owora\\Desktop\\dotNET\\uirevamp_to_netcore\\ITG-vs\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\chukwuemeka.owora\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -63,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
