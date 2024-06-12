@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<events>
+  <event name="NHLBI Concept Approval" date="" label=""/>
+  <event name="Schedule CIDP Meeting" date="" label=""/>
+  <event name="Consult with Director, Office of Grants Management" date="" label=""/>
+  <event name="Acquisition Plan Approval" date="" label=""/>
+  <event name="FedBizOpps Notice" date="" label=""/>
+  <event name="Release RFP" date="" label=""/>
+  <event name="Letters of Intent" date="" label=""/>
+  <event name="Proposal Receipt Date" date="" label=""/>
+  <event name="Primary Technical Review" date="" label=""/>
+  <event name="Technical Evaluation Reports Due" date="" label=""/>
+  <event name="Secondary Review" date="" label=""/>
+</events>

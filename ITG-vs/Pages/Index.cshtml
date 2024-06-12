@@ -31,7 +31,7 @@
                 <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
                     <p><strong>Step one:</strong> <span>Select Initiative Type</span></p>
 
-                    <select class="form-control">
+                    <select id="ddlContractType" class="form-control">
                         <option value="">Please select initiative type</option>
                     </select>
                 </div>
@@ -43,18 +43,18 @@
                     <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
                         <p><strong>Step two:</strong> <span>Select Funding Fiscal Year</span></p>
 
-                        <select class="form-control">
+                        <select id="DropDownList1" class="form-control">
                             <option value="">Please select a year</option>
                         </select>
                     </div>
                 </div>
             </div>
             <br />
-            <div>
+            <div id="pnlBox2">
                 <div class="row ml-1">
                     <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
                         <p>
-                            <strong>Step three:</strong> <span>Select Anticipated Council</span>
+                            <strong>Step three:</strong>
                             <span>
                                 @* <asp:Label ID="lblStep3" runat="server"></asp:Label> *@
                                 <span id="lblStep3">Select Anticipated Council</span>
@@ -64,7 +64,7 @@
                         OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged" AppendDataBoundItems="true">
                         <asp:ListItem Text="Please select a date" Value="" />
                         </asp:DropDownList> *@
-                        <select class="form-control">
+                        <select id="DropDownList2" class="form-control">
                             <option value="">Please select a date</option>
                         </select>
                     </div>
@@ -89,7 +89,7 @@
                         <table class="table" style="width: 100%; border: none;">
                             <tr>
                                 <td style="font-weight: bold">
-                                    <span id="lblIdeaForumDesc" style="font-weight:bold">Idea Forum - Round 1</span>                                    
+                                    <span id="lblIdeaForumDesc" style="font-weight:bold">Idea Forum - Round 1</span>
                                     @* <asp:Label ID="lblCouncilRound" runat="server"></asp:Label> *@
                                     @*<span id="lblCouncilRound" style="font-weight:bold"> [Not set] </span>*@
                                     <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
@@ -209,7 +209,7 @@
                                 <td style="font-weight: bold">
                                     <span id="lblMemo3Desc" style="font-weight:bold">DERA Director's Approval to Publish the FOA in the NIH Guide</span>
                                     @*<asp:Label ID="lblMemo3Desc" runat="server" Text="DERA Director's Approval to Publish the FOA in the
-                                            NIH Guide"></asp:Label>*@
+                                    NIH Guide"></asp:Label>*@
                                     <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
                                        data-content="Final approval granted by the NHLBI DERA Director. Provided date outlines the minimum when
                                             this should be completed in order to meet intended dwell time of the FOA publication and the fiscal year
@@ -259,7 +259,7 @@
                             <tr>
                                 <td>
                                     @* <asp:Label ID="lblNumberOfDaysPub" runat="server" Text="Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)" style="font-weight: bold"></asp:Label> *@
-                                    
+
                                     @* <span id="lblNumberOfDaysPub" style="font-weight:bold"> Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)  </span> *@
                                     <span id="lblNumberOfDaysPub" style="font-weight:bold"> Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)  </span>
                                     <br />
@@ -330,9 +330,7 @@
                     </div>
                 </div>
             </div>
-
-
-           
+            <!--removed duplicate step 4-->
 
             <div>
                 <div class="row ml-1">
@@ -344,7 +342,7 @@
                                     <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
                                 </asp:HyperLink>
                                 <asp:Label ID="PrintRFPInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label>
-                             </span>
+                            </span>
                         </p>
                         <table class="table" style="width: 100%; border: none;">
                             <tr>
@@ -402,7 +400,7 @@
                             <tr>
                                 <td>
                                     <span Id="lblNumberODaysRFP" style="font-weight:bold"> Enter the number of days desired between the RFP release date and the proposal receipt date</span>
-                                               @*style="font-weight: bold"></span><br />*@
+                                    @*style="font-weight: bold"></span><br />*@
                                     @*<asp:TextBox ID="NumberOfDaysRFP" runat="server" AutoPostBack="true" aria-label="NumberOfDays" Width="36" Text="30" OnTextChanged="RFPDays_TextChanged" /><br />*@
                                     @*<asp:Label ID="lblRFPError" runat="server" Visible="false" ForeColor="red" Font-Size="10px"></asp:Label>*@
                                 </td>
@@ -467,15 +465,210 @@
                     </div>
                 </div>
             </div>
+
             <br />
             <div id="d3Timeline" runat="server" visible="false">
                 <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
                 <script type="text/javascript" id="d3Vis">
                     var xmlDoc = '<%=BuildInitParams()%>'.split(',');
                 </script>
-                <script type="text/javascript" src="Scripts/mainTimeline.js"></script>
+                <script type="text/javascript" src="~/js/mainTimeline.js"></script>
             </div>
 
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        initPage();
+        // Add an event listener for when the dropdown value changes
+        ddlContractType.addEventListener('change', function () {
+            handleDropdownChange(this.value);
+        });
+        const DropDownList1 = document.getElementById('DropDownList1');
+        DropDownList1.addEventListener('change', function () {
+            handleDropdown1Change(this.value);
+        });
+    });
+
+    function initPage() {
+        // Define the API endpoint
+        const apiEndpoint = '/api/timeline/fillcontracttype';
+
+        // Fetch the data from the API
+        fetch(apiEndpoint)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Get the dropdown element
+                const ddlContractType = document.getElementById('ddlContractType');
+
+                // Populate the dropdown with the received data
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.value; // Assuming 'value' is the property for the option value
+                    option.textContent = item.text; // Assuming 'text' is the property for the option text
+                    ddlContractType.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+    // Function to handle the dropdown change and make another API call
+    function handleDropdownChange(selectedValue) {
+        if (selectedValue) {
+            // Define the API endpoint for the selected value
+            const apiEndpoint = `/api/timeline/fillfiscalyears/${selectedValue}`;
+
+            // Fetch the data from the API based on the selected value
+            fetch(apiEndpoint)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the data received from the second API call
+                    console.log(data);
+                    // You can add your logic here to process the data and update the UI accordingly
+                    const DropDownList1 = document.getElementById('DropDownList1');
+
+                    // Populate the dropdown with the received data
+                    data.forEach(item => {
+                        const option = document.createElement('option');
+                        option.value = item.value; // Assuming 'value' is the property for the option value
+                        option.textContent = item.text; // Assuming 'text' is the property for the option text
+                        DropDownList1.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+    }
+
+    function handleDropdown1Change(selectedValue) {
+
+        var strFiscalYear = document.getElementById('DropDownList1').value;
+
+        if (strFiscalYear) {
+            document.getElementById('DropDownList2').disabled = false;
+            var dropDownList2 = document.getElementById('DropDownList2');
+            dropDownList2.innerHTML = ''; // Clear existing items
+            var option = document.createElement('option');
+            option.text = "Please select a date";
+            option.value = "";
+            dropDownList2.add(option);
+
+            // Assuming fillMeetingDates is a function that fills the dropdown based on the fiscal year
+            fillMeetingDates(strFiscalYear);
+
+            document.getElementById('pnlBox2').disabled = false;
+        } else {
+            document.getElementById('DropDownList2').selectedIndex = 0;
+            document.getElementById('pnlBox2').disabled = true;
+        }
+
+        document.getElementById('PrintRFA').style.display = 'none';
+        document.getElementById('PrintRFAInactive').style.display = 'block';
+        document.getElementById('PrintRFP').style.display = 'none';
+        document.getElementById('PrintRFPInactive').style.display = 'block';
+
+        // Assuming ResetValues is a function that resets necessary values
+        ResetValues();
+
+        document.getElementById('d3Timeline').style.display = 'none';
+
+    }
+
+    function handleDropdown2Change(selectedValue) {
+        const ddlContractType = document.getElementById('ddlContractType');
+        const DropDownList1 = document.getElementById('DropDownList1');
+        const apiEndpoint = `/api/Timeline/FilterCouncil?DropDownList2=${selectedValue}&DropDownList1=${DropDownList1}&ContractType=${ddlContractType}`
+    }
+    function fillMeetingDates(strFiscalYear) {
+        // Define the FetchCouncilRequest object
+        var dropDownList2 = document.getElementById('DropDownList2');
+
+        var fetchCouncilRequest = {
+            DropDownList1: strFiscalYear,
+            DropDownList2: (dropDownList2.value == "")? 1: dropDownList2.value, // You may need to provide a value for DropDownList2 if necessary
+            DropDownList2Count: document.getElementById('DropDownList2').options.length,
+            ContractType: document.getElementById('ddlContractType').value  // You may need to provide a value for ContractType if necessary
+        };
+        console.log(fetchCouncilRequest);
+        // Convert the fetchCouncilRequest object to a query string
+        var queryString = Object.keys(fetchCouncilRequest)
+            .map(key => key + '=' + encodeURIComponent(fetchCouncilRequest[key]))
+            .join('&');
+        console.log(queryString);
+
+        // Make the HTTP GET request to the endpoint
+        fetch(`/api/timeline/fillmeetingdates?${queryString}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the response data here
+                console.log(data);
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.value; // Assuming 'value' is the property for the option value
+                    option.textContent = item.text; // Assuming 'text' is the property for the option text
+                    dropDownList2.appendChild(option);
+                });
+            })
+            .catch(error => {
+                // Handle errors here
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+    function ResetValues() {
+        var strResetValue = "[Not set]";
+
+        // Resetting regular labels
+        var regularLabels = [
+            "lblIdeaForum", "lblBeeMeeting", "lblCouncilMeeting", "lblApplicationReceiptDate",
+            "lblLettersOfIntent", "lblSubmitDERADraft", "lblMemo3", "lblConsultWithReviewBranch",
+            "lblMemo2", "lblNHLBICouncilConceptClearance", "lblNIHGuidePublication", "lblPeerReviewMeeting",
+            "lblROSubmitsToNIHGuide", "lblSummaryStatementsComplete"
+        ];
+
+        regularLabels.forEach(function (labelId) {
+            var label = document.getElementById(labelId);
+            if (label) {
+                label.textContent = strResetValue;
+                label.style.color = "black";
+            }
+        });
+
+        // Resetting RFP labels
+        var rfpLabels = [
+            "lblCWOSR", "lblNHLBICCA", "lblDRNI", "lblRFPAPA", "lblRFPFBON",
+            "lblRFPReleaseRFP", "lblRFPLettersofIntent", "lblRFPPRD", "lblRFPFirstReivew",
+            "lblRFPTERD", "lblRFPCouncilMeeting"
+        ];
+
+        rfpLabels.forEach(function (labelId) {
+            var label = document.getElementById(labelId);
+            if (label) {
+                label.textContent = strResetValue;
+                label.style.color = "black";
+            }
+        });
+    }
+
+
+
+</script>
+

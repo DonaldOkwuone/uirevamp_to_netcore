@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dates>
+  		<date key="Feb" value="1-12"/>
+		  <date key="Mar" value="1-12"/>
+		  <date key="Jun" value="1-12"/>
+		  <date key="Jul" value="1-12"/>
+		  <date key="Oct" value="1-12"/>
+      <date key="Nov" value="1-12"/>
+		  <date key="Apr" value="1-9"/>
+		  <date key="Aug" value="1-9"/>
+		  <date key="Dec" value="1-9"/>
+		  <date key="Jan" value="1-3"/>
+		  <date key="May" value="1-3"/>
+		  <date key="Sep" value="1-3"/>
+</dates>
