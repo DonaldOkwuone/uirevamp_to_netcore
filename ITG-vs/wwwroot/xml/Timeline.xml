@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<events>
+  <event name="Idea Forum" date="" label=""/>
+  <event name="BEE Meeting" date="" label=""/>
+  <event name="NHLBI Council Concept Clearance" date="" label=""/>
+  <event name="Schedule FOA Development Meeting" date="" label=""/>
+  <event name="Consult with Office of Grants Management" date="" label=""/>
+  <event name="Submit FOA Draft for DERA Review" date="" label=""/>
+  <event name="DERA Director’s Approval to Publish the FOA in the NIH Guide" date="" label=""/>
+  <event name="OFDR Submits FOA Draft to NIH Guide" date="" label=""/>
+  <event name="NIH Guide Publication" date="" label=""/>
+  <event name="Letters of Intent" date="" label=""/>
+  <event name="Application Due Date" date="" label=""/>
+  <event name="Peer Review Meeting" date="" label=""/>
+  <event name="Summary Statements Complete" date="" label=""/>
+  <event name="Council Meeting" date="" label=""/>
+</events>

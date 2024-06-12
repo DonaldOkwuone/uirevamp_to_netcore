@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div id="content" class="col-md-10">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title scroll-target">
+                <strong>Send Email, ITG</strong>
+            </h4>
+        </div>
+        <div class="panelEmail-panel-body-container">
+            <div class="panel-body">
+                <p>An email containing the timeline generated will be sent to the Office of Grants Management. You will be copied.</p>
+                <p><span style="color: Red">*</span>: required field</p>
+                <br />
+                <span style="color: Red">*</span>
+                <label class="control-label" for="txtTitle">RFA/RFP title</label>
+                <input id="txtTitle" class="form-control" type="text" aria-label="Title" tabindex="1" width="190">
+                <!--   <asp:TextBox ID="txtTitle" class="form-control" aria-label="Title" runat="server" Width="190" TabIndex="1"></asp:TextBox> -->
+
+                <span style="color: Red">*</span>
+                <label class="control-label" for="txtName">Your name</label>
+                <input id="txtName" class="form-control" type="text" aria-label="Name" tabindex="2" width="190">
+
+                @* <asp:TextBox ID="txtName" class="form-control" runat="server" aria-label="Name" Width="190" TabIndex="2"></asp:TextBox> *@
+
+                <span style="color: Red">*</span>
+                <label class="control-label" for="txtEmail">Your email address</label>
+                <input id="txtEmail" class="form-control" type="text" aria-label="Email" tabindex="2" width="190">
+
+                @* <asp:TextBox ID="txtEmail" class="form-control" runat="server" aria-label="Email" Width="190" TabIndex="3"></asp:TextBox> *@
+            </div>
+            <div class="clearfix"></div>
+            <div class="panel-footer text-right">
+                <asp:Button ID="btnSend" class="btn btn-default" runat="server" Text="Send email" OnClick="btnSend_Click" CausesValidation="true" TabIndex="4" />&nbsp;&nbsp;&nbsp;
+                <input type="button" class="btn btn-default" value="Cancel" onclick="history.go(-1);" tabindex="5" />
+                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="txtTitle" ErrorMessage="RFA title is required" Display="none"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="rfvName" runat="server" ControlToValidate="txtName" ErrorMessage="Name is required" Display="None"></asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email address is required" Display="None"></asp:RequiredFieldValidator>
+
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="true" ShowSummary="false" />
+            </div>
+        </div>
+    </div>
+</div>

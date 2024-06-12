@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dates>
+  <date range="yes"  month="2" from="1" to="12" />
+  <date range="yes"  month="3" from="1" to="12" />
+  <date range="yes"  month="6" from="1" to="12" />
+  <date range="yes"  month="7" from="1" to="12" />
+  <date range="yes"  month="10" from="1" to="12" />
+  <date range="yes"  month="11" from="1" to="12" />
+  <date range="yes"  month="4" from="1" to="9" />
+  <date range="yes"  month="8" from="1" to="9" />
+  <date range="yes"  month="12" from="1" to="9" />
+  <date range="yes"  month="1" from="1" to="3" />
+  <date range="yes"  month="5" from="1" to="3" />
+  <date range="yes"  month="9" from="1" to="3" />
+</dates>

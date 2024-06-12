@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Initiatives>
+  <fiscalyear name="2007">
+    <meetingdate name="October, 2006" value="10/30/2006" />
+    <meetingdate name="February, 2007" value="2/14/2007" />
+    <meetingdate name="June, 2007" value="6/5/2007" />
+    <meetingdate name="September, 2007" value="9/12/2007" />    
+  </fiscalyear>
+  <fiscalyear name="2008">
+    <meetingdate name="October, 2007" value="10/30/2007" />
+    <meetingdate name="February, 2008" value="2/13/2008" />
+    <meetingdate name="June, 2008" value="6/11/2008" />
+    <meetingdate name="September, 2008" value="9/9/2008" />
+  </fiscalyear>
+  <fiscalyear name="2009">
+    <meetingdate name="October, 2008" value="10/21/2008" />
+    <meetingdate name="February, 2009" value="2/10/2009" />
+    <meetingdate name="June, 2009" value="6/10/2009" />
+    <meetingdate name="September, 2009" value="9/1/2009" />
+  </fiscalyear>
+  <fiscalyear name="2010">
+    <meetingdate name="October, 2009" value="10/20/2009" />
+    <meetingdate name="February, 2010" value="2/2/2010" />
+    <meetingdate name="June, 2010" value="6/22/2010" />
+    <meetingdate name="September, 2010" value="9/1/2010" />
+  </fiscalyear>
+  <fiscalyear name="2011">
+    <meetingdate name="October, 2010" value="10/26/2010" />
+    <meetingdate name="February, 2011" value="2/15/2011" />
+    <meetingdate name="June, 2011" value="6/15/2011" />
+    <meetingdate name="September, 2011" value="9/9/2011" />
+  </fiscalyear>
+  <fiscalyear name="2012">
+    <meetingdate name="October, 2011" value="10/18/2011" />
+    <meetingdate name="February, 2012" value="2/15/2012" />
+    <meetingdate name="June, 2012" value="6/13/2012" />
+    <meetingdate name="September, 2012" value="9/11/2012" />
+  </fiscalyear>
+  <fiscalyear name="2013">
+    <meetingdate name="October, 2012" value="10/30/2012" />
+    <meetingdate name="February, 2013" value="2/12/2013" />
+    <meetingdate name="June, 2013" value="6/19/2013" />
+    <meetingdate name="September, 2013" value="9/11/2013" />
+  </fiscalyear>
+  <fiscalyear name="2014">
+    <meetingdate name="October, 2013" value="10/22/2013" />
+  </fiscalyear>
+</Initiatives>
