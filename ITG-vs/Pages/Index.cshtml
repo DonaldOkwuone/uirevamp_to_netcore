@@ -71,7 +71,7 @@
                 </div>
             </div>
             <br />
-            <div>
+            <div id="pnlBox3">
                 <div class="row ml-1">
                     <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
                         <p>
@@ -332,7 +332,7 @@
             </div>
             <!--removed duplicate step 4-->
 
-            <div>
+            <div id="pnlBox5">
                 <div class="row ml-1">
                     <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
                         <p>
@@ -479,6 +479,16 @@
     </div>
 </div>
 <script type="text/javascript">
+    var ddlContractType = document.getElementById("ddlContractType");
+    var pnlBox2 = document.getElementById("pnlBox2");
+    var lblStep3 = document.getElementById("lblStep3");
+    var pnlBox3 = document.getElementById("pnlBox3");
+    var pnlBox5 = document.getElementById("pnlBox5");
+    var dropDownList1 = document.getElementById("dropDownList1");
+    var dropDownList2 = document.getElementById("dropDownList2");
+    var printRFP = document.getElementById("printRFP");
+    var printRFPInactive = document.getElementById("printRFPInactive");
+
     document.addEventListener('DOMContentLoaded', function () {
         initPage();
         // Add an event listener for when the dropdown value changes
@@ -492,6 +502,9 @@
     });
 
     function initPage() {
+        document.getElementById('pnlBox2').style.display = 'none';
+        document.getElementById('pnlBox3').style.display = 'none';
+        document.getElementById('pnlBox5').style.display = 'none';
         // Define the API endpoint
         const apiEndpoint = '/api/timeline/fillcontracttype';
 
@@ -550,6 +563,51 @@
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
                 });
+        }
+        if (ddlContractType.value === "RFP") {
+            handRFP_Selectted();
+        } else if (ddlContractType.value === "RFA"){
+            handRFA_Selectted();
+        }else{
+            document.getElementById('pnlBox2').style.display = 'none';
+            document.getElementById('pnlBox3').style.display = 'none';
+            document.getElementById('pnlBox5').style.display = 'none';
+        }
+    }
+    function handRFA_Selectted(){
+        pnlBox2.style.display = "block"; // Make the panel visible
+        lblStep3.textContent = "Select Anticipated Council";
+
+        // Storing the value in sessionStorage
+        //sessionStorage.setItem("contractType", "RFA");
+
+        pnlBox3.style.display = "block"; // Make the panel visible
+        pnlBox5.style.display = "none"; // Make the panel hidden
+
+        if (dropDownList1.value !== "" && dropDownList2.value !== "") {
+            printRFA.style.display = "block"; // Make the element visible
+            printRFAInactive.style.display = "none"; // Make the element hidden
+        } else {
+            printRFA.style.display = "none"; // Make the element hidden
+            printRFAInactive.style.display = "block"; // Make the element visible
+        }
+    }
+    function handRFP_Selectted(){
+        pnlBox2.style.display = "block"; // Make the panel visible
+        lblStep3.textContent = "Select Anticipated Quarter for Secondary Review";
+
+        // Storing the value in sessionStorage
+        //sessionStorage.setItem("contractType", "RFP");
+
+        pnlBox3.style.display = "none"; // Make the panel hidden
+        pnlBox5.style.display = "block"; // Make the panel visible
+
+        if (dropDownList1.value !== "" && dropDownList2.value !== "") {
+            printRFP.style.display = "block"; // Make the element visible
+            printRFPInactive.style.display = "none"; // Make the element hidden
+        } else {
+            printRFP.style.display = "none"; // Make the element hidden
+            printRFPInactive.style.display = "block"; // Make the element visible
         }
     }
 
