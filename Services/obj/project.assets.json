@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG_upgraded\\ITG_upgraded.csproj",
-      "projectName": "ITG_upgraded",
-      "projectPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG_upgraded\\ITG_upgraded.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\Services\\Services.csproj",
+      "projectName": "Services",
+      "projectPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\Services\\Services.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG_upgraded\\obj\\",
+      "outputPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -62,9 +62,6 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
