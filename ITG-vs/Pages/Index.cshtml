@@ -465,7 +465,7 @@
                     </div>
                 </div>
             </div>
-
+@* 
             <br />
             <div id="d3Timeline" runat="server" visible="false">
                 <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
@@ -473,7 +473,7 @@
                     var xmlDoc = '<%=BuildInitParams()%>'.split(',');
                 </script>
                 <script type="text/javascript" src="~/js/mainTimeline.js"></script>
-            </div>
+            </div> *@
 
         </div>
     </div>
@@ -484,10 +484,13 @@
     var lblStep3 = document.getElementById("lblStep3");
     var pnlBox3 = document.getElementById("pnlBox3");
     var pnlBox5 = document.getElementById("pnlBox5");
-    var dropDownList1 = document.getElementById("dropDownList1");
-    var dropDownList2 = document.getElementById("dropDownList2");
-    var printRFP = document.getElementById("printRFP");
-    var printRFPInactive = document.getElementById("printRFPInactive");
+    var dropDownList1 = document.getElementById("DropDownList1");
+    var dropDownList2 = document.getElementById("DropDownList2");
+    var printRFP = document.getElementById("PrintRFP");
+    var printRFPInactive = document.getElementById("PrintRFPInactive");
+    var printRFAInactive = document.getElementById("PrintRFAInactive");
+    var printRFA = document.getElementById("PrintRFA");
+    // var printRFPInactive = document.getElementById("printRFPInactive");
 
     document.addEventListener('DOMContentLoaded', function () {
         initPage();

@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Services.utils
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +14,6 @@
     <link rel="shortcut icon" href="https://www.nhlbi.nih.gov/favicon.ico" type="image/x-icon" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" type="text/javascript"></script>
     <script type="text/javascript" src="~/js/d3.min.js"></script>
-    <script type="text/javascript" src="~/js/default.js"></script>
 </head>
 <body>
   
@@ -65,7 +65,7 @@
     </script>
 
     <!-- Place Web Analytics tracking code HERE - To collect data, you must copy and paste the Analytics tracking code into the source code on every web page you wish to track. -->
-    <script src="<%= Application[" AnalyticsExternalFile"] %>"></script>
+    <script src="@Settings.Get("AnalyticsExternalFile")"></script>
  
     <div class="container-fluid d-none d-md-block">
         <div class="row organization-background">
@@ -135,16 +135,27 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - ITG_vs - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+  
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script type="text/javascript">@Settings.Get("AnalyticsFooterScript")</script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <br />
+    <div id="d3Timeline" runat="server" visible="false">
+        <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
+        <script type="text/javascript" id="d3Vis">
+            var xmlDoc = '<%=BuildInitParams()%>'.split(',');
+        </script>
+        <script type="text/javascript" src="~/js/mainTimeline.js"></script>
+    </div>
+   
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; ITG
+        </div>
+    </footer>
 </body>
 </html>

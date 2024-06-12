@@ -4,7 +4,7 @@ body {
 }
 
 .organization-background {
-    background: white url(../../images/header-bg.png) 135px 22px repeat;
+    background: white url('/img/header-bg.png') 135px 22px repeat;
     background-size: cover;
 }
 
