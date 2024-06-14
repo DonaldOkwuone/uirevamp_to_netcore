@@ -4,138 +4,137 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <div>
-        <div id="content" class="col-md-10 m-auto">
-            <h1>Welcome</h1>
-            <p>
-                This application is intended to aid in drafting timelines for initiatives based on specific fiscal year targets and criteria.
-                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                   data-content="The dates of important milestones will be calculated automatically
+<div>
+    <div id="content" class="col-md-10 m-auto">
+        <h1>Welcome</h1>
+        <p>
+            This application is intended to aid in drafting timelines for initiatives based on specific fiscal year targets and criteria.
+            <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+               data-content="The dates of important milestones will be calculated automatically
                         and generate a summarized easy-to-read table with graphical representation below.
                         A copy of this timeline should be provided when contacting the Office of FOA Development
                         and Referral to aid in discussion.">
-                    <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
-                </a>
-            </p>
-            <p>
-                For grants-based initiatives (RFA, PA, PAR, PAS), the table defaults to a 60 day dwell time.  For contract-based initiatives (RFP), the table defaults to a 30 day dwell time.<br />
-                ITG users may increase the dwell time “time on the street” for an initiative by entering the desired number of dwell time days in the specific box in the table. The table milestones will adjust accordingly.
-            </p>
+                <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
+            </a>
+        </p>
+        <p>
+            For grants-based initiatives (RFA, PA, PAR, PAS), the table defaults to a 60 day dwell time.  For contract-based initiatives (RFP), the table defaults to a 30 day dwell time.<br />
+            ITG users may increase the dwell time “time on the street” for an initiative by entering the desired number of dwell time days in the specific box in the table. The table milestones will adjust accordingly.
+        </p>
 
-            <!-- Step 1 -->
-            <div class="step1">
+        <!-- Step 1 -->
+        <div class="step1">
+        </div>
+        <!-- Step 2 -->
+        <div class="row ml-1">
+            <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
+                <p><strong>Step one:</strong> <span>Select Initiative Type</span></p>
+
+                <select id="ddlContractType" class="form-control">
+                    <option value="">Please select initiative type</option>
+                </select>
             </div>
-            <!-- Step 2 -->
+        </div>
+        <br />
+        <!-- Step 2 -->
+        <div>
             <div class="row ml-1">
                 <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
-                    <p><strong>Step one:</strong> <span>Select Initiative Type</span></p>
+                    <p><strong>Step two:</strong> <span>Select Funding Fiscal Year</span></p>
 
-                    <select id="ddlContractType" class="form-control">
-                        <option value="">Please select initiative type</option>
+                    <select id="DropDownList1" class="form-control">
+                        <option value="">Please select a year</option>
                     </select>
                 </div>
             </div>
-            <br />
-            <!-- Step 2 -->
-            <div>
-                <div class="row ml-1">
-                    <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
-                        <p><strong>Step two:</strong> <span>Select Funding Fiscal Year</span></p>
-
-                        <select id="DropDownList1" class="form-control">
-                            <option value="">Please select a year</option>
-                        </select>
-                    </div>
+        </div>
+        <br />
+        <div id="pnlBox2">
+            <div class="row ml-1">
+                <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
+                    <p>
+                        <strong>Step three:</strong>
+                        <span>
+                            @* <asp:Label ID="lblStep3" runat="server"></asp:Label> *@
+                            <span id="lblStep3">Select Anticipated Council</span>
+                        </span>
+                    </p>
+                    @* <asp:DropDownList ID="DropDownList2" class="col-auto form-control" aria-label="lblDropDown" runat="server" AutoPostBack="true"
+                    OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged" AppendDataBoundItems="true">
+                    <asp:ListItem Text="Please select a date" Value="" />
+                    </asp:DropDownList> *@
+                    <select id="DropDownList2" class="form-control">
+                        <option value="">Please select a date</option>
+                    </select>
                 </div>
             </div>
-            <br />
-            <div id="pnlBox2">
-                <div class="row ml-1">
-                    <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
-                        <p>
-                            <strong>Step three:</strong>
-                            <span>
-                                @* <asp:Label ID="lblStep3" runat="server"></asp:Label> *@
-                                <span id="lblStep3">Select Anticipated Council</span>
-                            </span>
-                        </p>
-                        @* <asp:DropDownList ID="DropDownList2" class="col-auto form-control" aria-label="lblDropDown" runat="server" AutoPostBack="true"
-                        OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged" AppendDataBoundItems="true">
-                        <asp:ListItem Text="Please select a date" Value="" />
-                        </asp:DropDownList> *@
-                        <select id="DropDownList2" class="form-control">
-                            <option value="">Please select a date</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <br />
-            <div id="pnlBox3">
-                <div class="row ml-1">
-                    <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
-                        <p>
-                            <strong>Step four:</strong>
-                            <span>
-                                <asp:Label ID="lbl_step4" runat="server">
-                                    Below are the initial timeline deadline dates for the Council date you've selected&nbsp;
-                                    <asp:HyperLink runat="server" ID="PrintRFA" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
-                                        <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
-                                    </asp:HyperLink>
-                                    <asp:Label ID="PrintRFAInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label>
-                                </asp:Label>
-                            </span>
-                        </p>
-                        <table class="table" style="width: 100%; border: none;">
-                            <tr>
-                                <td style="font-weight: bold">
-                                    <span id="lblIdeaForumDesc" style="font-weight:bold">Idea Forum - Round 1</span>
-                                    @* <asp:Label ID="lblCouncilRound" runat="server"></asp:Label> *@
-                                    @*<span id="lblCouncilRound" style="font-weight:bold"> [Not set] </span>*@
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="Before a proposed concept can be approved and developed, authors
-                                       provide a brief presentation to NHLBI Extramural staff at an assigned time of an
-                                       Idea Forum (IF). Specific IF time slots are available over the course of an eight-week period,
-                                       in mid-December to early February (Round 1) or mid-May to end of June (Round 2). The date
-                                       displayed in the timeline represents the estimated final date by which IF should have
-                                       occurred for the proposed concept.
+        </div>
+        <br />
+        <div id="pnlBox3">
+            <div class="row ml-1">
+                <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
+                    <p>
+                        <strong>Step four:</strong>
+                        <span>
+                            <asp:Label ID="lbl_step4" runat="server">
+                                Below are the initial timeline deadline dates for the Council date you've selected&nbsp;
+                                <asp:HyperLink runat="server" ID="PrintRFA" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
+                                    <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
+                                </asp:HyperLink>
+                                <asp:Label ID="PrintRFAInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label>
+                            </asp:Label>
+                        </span>
+                    </p>
+                    <table class="table" style="width: 100%; border: none;">
+                        <tr>
+                            <td style="font-weight: bold">
+                                <span id="lblIdeaForumDesc" style="font-weight:bold">Idea Forum - Round 1</span>
+                                @* <asp:Label ID="lblCouncilRound" runat="server"></asp:Label> *@
+                                @*<span id="lblCouncilRound" style="font-weight:bold"> [Not set] </span>*@
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="Before a proposed concept can be approved and developed, authors
+                                   provide a brief presentation to NHLBI Extramural staff at an assigned time of an
+                                   Idea Forum (IF). Specific IF time slots are available over the course of an eight-week period,
+                                   in mid-December to early February (Round 1) or mid-May to end of June (Round 2). The date
+                                   displayed in the timeline represents the estimated final date by which IF should have
+                                   occurred for the proposed concept.
                                             <a href='https://collaboration.nhlbi.nih.gov/orgs/dera/Initiative_Development/SitePages/Initiative Development.aspx'
                                                 target='_blank'>Resources</a> for staff preparing for IF are available.">
                                             <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
                                         </a>
-                                </td>
+                            </td>
 
-                                <td>
-                                    @* <asp:Label ID="lblIdeaForum" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblIdeaForum" style="color:red">[Not set] </span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblBeeMeetingDesc" runat="server" Text="BEE Meeting"></asp:Label>*@
-                                    <span id="lblBeeMeetingDesc" style="font-weight:bold"> BEE Meeting </span>
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="After IF, if a proposed concept is moving forward, it then must be
+                            <td>
+                                @* <asp:Label ID="lblIdeaForum" runat="server" Text="[Not set]" /> *@
+                                <span id="lblIdeaForum" style="color:red">[Not set] </span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblBeeMeetingDesc" runat="server" Text="BEE Meeting"></asp:Label>*@
+                                <span id="lblBeeMeetingDesc" style="font-weight:bold"> BEE Meeting </span>
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="After IF, if a proposed concept is moving forward, it then must be
                                             reviewed by the Board of External Experts (BEE). BEE is the NHLBI advisory group that
                                             helps to prioritize ideas and concepts and makes recommendations about emerging
                                             challenges and opportunities.">
-                                        <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
-                                    </a>
-                                </td>
+                                    <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
+                                </a>
+                            </td>
 
-                                <td>
-                                    @* <asp:Label ID="lblBeeMeeting" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblBeeMeeting" style="color:red">[Not set] </span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblNHLBICouncilConceptClearanceDesc" runat="server" Text="NHLBI Council Concept Clearance Meeting"></asp:Label> *@
-                                    <span id="lblNHLBICouncilConceptClearanceDesc" style="font-weight:bold">NHLBI Council Concept Clearance Meeting</span>
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="<p>NHLBI Advisory Council meeting to review concept and provide feedback to Director, NHLBI regarding
+                            <td>
+                                @* <asp:Label ID="lblBeeMeeting" runat="server" Text="[Not set]" /> *@
+                                <span id="lblBeeMeeting" style="color:red">[Not set] </span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblNHLBICouncilConceptClearanceDesc" runat="server" Text="NHLBI Council Concept Clearance Meeting"></asp:Label> *@
+                                <span id="lblNHLBICouncilConceptClearanceDesc" style="font-weight:bold">NHLBI Council Concept Clearance Meeting</span>
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="<p>NHLBI Advisory Council meeting to review concept and provide feedback to Director, NHLBI regarding
                                                 approval for concept to move forward to development into a funding opportunity.</p>
                                                 <p>Concept Clearance refers to the full
                                                 <a href='https://intranet.nhlbi.nih.gov/general/office-of-foa-development-and-referral-ofdr'
@@ -147,375 +146,339 @@
                                                 to proceed in a timely manner to publication.</p>">
                                             <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
                                         </a>
-                                </td>
+                            </td>
 
-                                <td>
-                                    @* <asp:Label ID="lblNHLBICouncilConceptClearance" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblNHLBICouncilConceptClearance" style="color:red">[Not set]</span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    <span id="lblMemo2Desc" style="font-weight:bold">Schedule FOA Development Meeting</span>
-                                    @*<asp:Label runat="server" Text="Schedule FOA Development Meeting" ID="lblMemo2Desc"></asp:Label>*@
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="Concept Clearance approval is granted. OFDR will create a foundational FOAM record for
-                                       the approved initiative. Work with your Divisional Referral Liaison(s) to schedule the FOA Development
-                                       Planning Meeting by the due date. Follow the FOAM directions and <a href='https://collaboration.nhlbi.nih.gov/orgs/dera/RO/_layouts/15/start.aspx#/'
+                            <td>
+                                @* <asp:Label ID="lblNHLBICouncilConceptClearance" runat="server" Text="[Not set]" /> *@
+                                <span id="lblNHLBICouncilConceptClearance" style="color:red">[Not set]</span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                <span id="lblMemo2Desc" style="font-weight:bold">Schedule FOA Development Meeting</span>
+                                @*<asp:Label runat="server" Text="Schedule FOA Development Meeting" ID="lblMemo2Desc"></asp:Label>*@
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="Concept Clearance approval is granted. OFDR will create a foundational FOAM record for
+                                   the approved initiative. Work with your Divisional Referral Liaison(s) to schedule the FOA Development
+                                   Planning Meeting by the due date. Follow the FOAM directions and <a href='https://collaboration.nhlbi.nih.gov/orgs/dera/RO/_layouts/15/start.aspx#/'
                                                 target='_blank'>submit the completed materials prior to the meeting</a>.">
                                             <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
                                         </a>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblMemo2" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblMemo2" style="color:red">[Not set]</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblConsultWithReviewBranchDesc" runat="server" Text="Consult with Office of Grants Management"></asp:Label> *@
-                                    <span id="lblConsultWithReviewBranchDesc" style="font-weight:bold">Consult with Office of Grants Management</span>
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="Mandatory task to discuss budgetary language for the FOA.">
-                                        <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblConsultWithReviewBranch" runat="server" Text="[Not set]" /> *@
-                                    <span name="lblConsultWithReviewBranch" id="lblConsultWithReviewBranch" style="color:red">[Not set]</span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    <span id="lblSubmitDERADraftDesc" style="font-weight:bold">Submit FOA Draft for DERA Review</span>
-                                    @*<asp:Label ID="lblSubmitDERADraftDesc" runat="server" Text="Submit FOA Draft for DERA Review"></asp:Label>*@
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="Submitting the FOA draft by provided date allows for the required internal
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblMemo2" runat="server" Text="[Not set]" /> *@
+                                <span id="lblMemo2" style="color:red">[Not set]</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblConsultWithReviewBranchDesc" runat="server" Text="Consult with Office of Grants Management"></asp:Label> *@
+                                <span id="lblConsultWithReviewBranchDesc" style="font-weight:bold">Consult with Office of Grants Management</span>
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="Mandatory task to discuss budgetary language for the FOA.">
+                                    <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
+                                </a>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblConsultWithReviewBranch" runat="server" Text="[Not set]" /> *@
+                                <span name="lblConsultWithReviewBranch" id="lblConsultWithReviewBranch" style="color:red">[Not set]</span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                <span id="lblSubmitDERADraftDesc" style="font-weight:bold">Submit FOA Draft for DERA Review</span>
+                                @*<asp:Label ID="lblSubmitDERADraftDesc" runat="server" Text="Submit FOA Draft for DERA Review"></asp:Label>*@
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="Submitting the FOA draft by provided date allows for the required internal
                                             reviews to take place in a timely manner. Please note that there are many steps and offices
                                             that review the FOA draft prior to NHLBI DERA Director’s approval.">
-                                        <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblSubmitDERADraft" runat="server" Text="[Not set]" /> *@
-                                    <span name="lblSubmitDERADraft" id="lblSubmitDERADraft" style="color:red">[Not set]</span>
+                                    <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
+                                </a>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblSubmitDERADraft" runat="server" Text="[Not set]" /> *@
+                                <span name="lblSubmitDERADraft" id="lblSubmitDERADraft" style="color:red">[Not set]</span>
 
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    <span id="lblMemo3Desc" style="font-weight:bold">DERA Director's Approval to Publish the FOA in the NIH Guide</span>
-                                    @*<asp:Label ID="lblMemo3Desc" runat="server" Text="DERA Director's Approval to Publish the FOA in the
-                                    NIH Guide"></asp:Label>*@
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="Final approval granted by the NHLBI DERA Director. Provided date outlines the minimum when
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                <span id="lblMemo3Desc" style="font-weight:bold">DERA Director's Approval to Publish the FOA in the NIH Guide</span>
+                                @*<asp:Label ID="lblMemo3Desc" runat="server" Text="DERA Director's Approval to Publish the FOA in the
+                                NIH Guide"></asp:Label>*@
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="Final approval granted by the NHLBI DERA Director. Provided date outlines the minimum when
                                             this should be completed in order to meet intended dwell time of the FOA publication and the fiscal year
                                             of funding for the start of the grant awards.">
-                                        <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    @*<asp:Label ID="lblMemo3" runat="server" Text="[Not set]" />*@
-                                    <span name="lblMemo3" id="lblMemo3" style="color:red">[Not set]</span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    <span id="lblROSubmitsToNIHGuideDesc" style="font-weight:bold">OFDR Submits FOA Draft to NIH Guide</span>
-                                    @*<asp:Label ID="lblROSubmitsToNIHGuideDesc" runat="server" Text="OFDR Submits FOA Draft to NIH Guide"></asp:Label>*@
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="The NIH Guide estimates 4-6 weeks OER, OPERA, and NIH Guide review of the FOA. The provided date is set
+                                    <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
+                                </a>
+                            </td>
+                            <td>
+                                @*<asp:Label ID="lblMemo3" runat="server" Text="[Not set]" />*@
+                                <span name="lblMemo3" id="lblMemo3" style="color:red">[Not set]</span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                <span id="lblROSubmitsToNIHGuideDesc" style="font-weight:bold">OFDR Submits FOA Draft to NIH Guide</span>
+                                @*<asp:Label ID="lblROSubmitsToNIHGuideDesc" runat="server" Text="OFDR Submits FOA Draft to NIH Guide"></asp:Label>*@
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="The NIH Guide estimates 4-6 weeks OER, OPERA, and NIH Guide review of the FOA. The provided date is set
                                             to the maximum 6 week period post submission to the Guide.">
-                                        <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <span name="lblROSubmitsToNIHGuide" id="lblROSubmitsToNIHGuide" style="color:red">[Not set]</span>
-                                    @*<asp:Label ID="lblROSubmitsToNIHGuide" runat="server" Text="[Not set]" />*@
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
+                                    <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
+                                </a>
+                            </td>
+                            <td>
+                                <span name="lblROSubmitsToNIHGuide" id="lblROSubmitsToNIHGuide" style="color:red">[Not set]</span>
+                                @*<asp:Label ID="lblROSubmitsToNIHGuide" runat="server" Text="[Not set]" />*@
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
 
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblNIHGuidePublicationDesc" runat="server" Text="NIH Guide Publication"></asp:Label> *@
-                                    <span name="lblNIHGuidePublicationDesc" id="lblNIHGuidePublicationDesc" type="text" style="font-weight:bold">NIH Guide Publication</span>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblNIHGuidePublicationDesc" runat="server" Text="NIH Guide Publication"></asp:Label> *@
+                                <span name="lblNIHGuidePublicationDesc" id="lblNIHGuidePublicationDesc" type="text" style="font-weight:bold">NIH Guide Publication</span>
 
-                                    <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
-                                       data-content="Anticipated date of FOA publication. Approximated depending on timing of feedback from NIH Guide.">
-                                        <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblNIHGuidePublication" runat="server" Text="[Not set]" /> *@
-                                    <span name="lblNIHGuidePublication" id="lblNIHGuidePublication" type="text" style="color:red">[Not set]</span>
+                                <a href="#" onclick="return false;" data-toggle="popover" data-placement="bottom"
+                                   data-content="Anticipated date of FOA publication. Approximated depending on timing of feedback from NIH Guide.">
+                                    <span aria-label="Tooltip" class="fa fa-info-circle text-body"></span>
+                                </a>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblNIHGuidePublication" runat="server" Text="[Not set]" /> *@
+                                <span name="lblNIHGuidePublication" id="lblNIHGuidePublication" type="text" style="color:red">[Not set]</span>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    @* <asp:Label ID="lblNumberOfDaysPub" runat="server" Text="Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)" style="font-weight: bold"></asp:Label> *@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @* <asp:Label ID="lblNumberOfDaysPub" runat="server" Text="Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)" style="font-weight: bold"></asp:Label> *@
 
-                                    @* <span id="lblNumberOfDaysPub" style="font-weight:bold"> Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)  </span> *@
-                                    <span id="lblNumberOfDaysPub" style="font-weight:bold"> Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)  </span>
-                                    <br />
+                                @* <span id="lblNumberOfDaysPub" style="font-weight:bold"> Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)  </span> *@
+                                <span id="lblNumberOfDaysPub" style="font-weight:bold"> Enter the number of days desired between NIH guide publication date and the application due date (total dwell time)  </span>
+                                <br />
 
-                                    @* <asp:TextBox ID="NumberOfDaysPub" runat="server" AutoPostBack="true" aria-label="NumberOfDays" Width="36" OnTextChanged="PubDays_TextChanged" /><br /> *@
-                                    @* <textarea id="NumberOfDaysPub" aria-label="NumberOfDays" style="font-size:10px" cols="36"></textarea> *@
-                                    <input name="NumberOfDaysPub" id="NumberOfDaysPub" type="text" value="60" onchange="" onkeypress="" id="NumberOfDaysPub" aria-label="NumberOfDays" style="width:36px;">
+                                @* <asp:TextBox ID="NumberOfDaysPub" runat="server" AutoPostBack="true" aria-label="NumberOfDays" Width="36" OnTextChanged="PubDays_TextChanged" /><br /> *@
+                                @* <textarea id="NumberOfDaysPub" aria-label="NumberOfDays" style="font-size:10px" cols="36"></textarea> *@
+                                <input name="NumberOfDaysPub" id="NumberOfDaysPub" type="text" value="60" onchange="" onkeypress="" id="NumberOfDaysPub" aria-label="NumberOfDays" style="width:36px;">
 
-                                    @* <asp:Label ID="lblPubError" runat="server" Visible="false" ForeColor="red" Font-Size="10px"></asp:Label> *@
-                                    @*<span id="lblPubError" style="color:red; font-size:10px"> Letters of Intent  </span>*@
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblLettersOfIntentDesc" runat="server" Text="Letters of Intent"></asp:Label> *@
-                                    <span id="lblLettersOfIntentDesc" style="font-weight:bold"> Letters of Intent  </span>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblLettersOfIntent" runat="server" Text="[Not set]" /> *@
-                                    <span name="lblLettersOfIntent" id="lblLettersOfIntent" style="color:red">[Not set]</span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblApplicationReceiptDateDesc" runat="server" Text="Application Due Date"></asp:Label> *@
-                                    <span id="lblApplicationReceiptDateDesc" style="font-weight:bold"> Application Due Date </span>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblApplicationReceiptDate" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblApplicationReceiptDate" style="color:red"> [Not set]  </span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblPeerReviewMeetingDesc" runat="server" Text="Peer Review Meeting"></asp:Label> *@
-                                    <span id="lblPeerReviewMeetingDesc" style="font-weight:bold"> Peer Review Meeting </span>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblPeerReviewMeeting" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblPeerReviewMeeting" style="color:Red"> [Not set] </span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblSummaryStatementsCompleteDesc" runat="server" Text="Summary Statements Complete"></asp:Label> *@
-                                    <span id="lblSummaryStatementsCompleteDesc" style="font-weight:bold"> Summary Statements Complete </span>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblSummaryStatementsComplete" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblSummaryStatementsComplete" style="color:Red"> [Not set] </span>
+                                @* <asp:Label ID="lblPubError" runat="server" Visible="false" ForeColor="red" Font-Size="10px"></asp:Label> *@
+                                @*<span id="lblPubError" style="color:red; font-size:10px"> Letters of Intent  </span>*@
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblLettersOfIntentDesc" runat="server" Text="Letters of Intent"></asp:Label> *@
+                                <span id="lblLettersOfIntentDesc" style="font-weight:bold"> Letters of Intent  </span>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblLettersOfIntent" runat="server" Text="[Not set]" /> *@
+                                <span name="lblLettersOfIntent" id="lblLettersOfIntent" style="color:red">[Not set]</span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblApplicationReceiptDateDesc" runat="server" Text="Application Due Date"></asp:Label> *@
+                                <span id="lblApplicationReceiptDateDesc" style="font-weight:bold"> Application Due Date </span>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblApplicationReceiptDate" runat="server" Text="[Not set]" /> *@
+                                <span id="lblApplicationReceiptDate" style="color:red"> [Not set]  </span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblPeerReviewMeetingDesc" runat="server" Text="Peer Review Meeting"></asp:Label> *@
+                                <span id="lblPeerReviewMeetingDesc" style="font-weight:bold"> Peer Review Meeting </span>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblPeerReviewMeeting" runat="server" Text="[Not set]" /> *@
+                                <span id="lblPeerReviewMeeting" style="color:Red"> [Not set] </span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblSummaryStatementsCompleteDesc" runat="server" Text="Summary Statements Complete"></asp:Label> *@
+                                <span id="lblSummaryStatementsCompleteDesc" style="font-weight:bold"> Summary Statements Complete </span>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblSummaryStatementsComplete" runat="server" Text="[Not set]" /> *@
+                                <span id="lblSummaryStatementsComplete" style="color:Red"> [Not set] </span>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">Council Meeting</td>
-                                <td>
-                                    @* <asp:Label ID="lblCouncilMeeting" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblCouncilMeeting" style="color:Red"> [Not set] </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">Council Meeting</td>
+                            <td>
+                                @* <asp:Label ID="lblCouncilMeeting" runat="server" Text="[Not set]" /> *@
+                                <span id="lblCouncilMeeting" style="color:Red"> [Not set] </span>
 
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                        </table>
-                        <br />
-                    </div>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                    <br />
                 </div>
             </div>
-            <!--removed duplicate step 4-->
-
-            <div id="pnlBox5">
-                <div class="row ml-1">
-                    <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
-                        <p>
-                            <strong>Step four:</strong> Below are the initial timeline deadline dates for the secondary review date you have selected&nbsp;
-                            <span>
-                                <asp:HyperLink runat="server" ID="PrintRFP" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
-                                    <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
-                                </asp:HyperLink>
-                                <asp:Label ID="PrintRFPInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label>
-                            </span>
-                        </p>
-                        <table class="table" style="width: 100%; border: none;">
-                            <tr>
-                                <td style="font-weight: bold">NHLBI Concept Approval</td>
-                                <td>
-                                    @* <asp:Label ID="" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblNHLBICCA" style="color:Red"> [Not set] </span>
-
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    Schedule CIDP Meeting<br />
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblDRNI" runat="server" Text="[Not set]" /></td> *@
-                                    <span id="lblDRNI" style="color:Red"> [Not set] </span>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">Consult with Director, Office of Grants Management</td>
-                                <td>
-                                    @* <asp:Label ID="lblCWOSR"  runat="server" Text="[Not set]" /> *@
-                                    <span id="lblCWOSR" style="color:Red"> [Not set] </span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">Acquisition Plan Approval</td>
-                                <td>
-                                    @* <asp:Label ID="lblRFPAPA" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblRFPAPA" style="color:Red"> [Not set] </span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblRFPFBONDesc" runat="server" Text="FedBizOpps Notice"></asp:Label> *@
-                                    <span id="lblRFPFBONDesc" style="font-weight:bold"> FedBizOpps Notice</span>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblRFPFBON" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblRFPFBON" style="color:Red"> [Not set] </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">Release RFP</td>
-                                <td>
-                                    @* <asp:Label ID="lblRFPReleaseRFP" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblRFPReleaseRFP" style="color:Red"> [Not set] </span>
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span Id="lblNumberODaysRFP" style="font-weight:bold"> Enter the number of days desired between the RFP release date and the proposal receipt date</span>
-                                    @*style="font-weight: bold"></span><br />*@
-                                    @*<asp:TextBox ID="NumberOfDaysRFP" runat="server" AutoPostBack="true" aria-label="NumberOfDays" Width="36" Text="30" OnTextChanged="RFPDays_TextChanged" /><br />*@
-                                    @*<asp:Label ID="lblRFPError" runat="server" Visible="false" ForeColor="red" Font-Size="10px"></asp:Label>*@
-                                </td>
-                                <td>
-                                    <span id="lblNumberODaysRFP" style="color:Red"> [Not set] </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblRFPLettersofIntentDesc" runat="server" Text="Letters of Intent"></asp:Label> *@
-                                    <span id="lblRFPLettersofIntentDesc" style="font-weight:bold"> Letters of Intent </span>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblRFPLettersofIntent" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblRFPLettersofIntent" style="color:Red"> [Not set] </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblRFPPRDDesc" runat="server" Text="Proposal Receipt Date"></asp:Label> *@
-                                    <span id="lblRFPPRDDesc" style="font-weight:bold"> Proposal Receipt Date </span>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblRFPPRD" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblRFPPRD" style="color:Red"> [Not set] </span>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">Primary Technical Review</td>
-                                <td>
-                                    @* <asp:Label ID="lblRFPFirstReivew" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblRFPFirstReivew" style="color:Red"> [Not set] </span>
-
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">
-                                    @* <asp:Label ID="lblRFPTERDDesc" runat="server" Text="Technical Evaluation Reports Due"></asp:Label> *@
-                                    <span id="lblRFPTERDDesc" style="font:bold">Technical Evaluation Reports Due </span>
-                                </td>
-                                <td>
-                                    @* <asp:Label ID="lblRFPTERD" runat="server" Text="[Not set]" /> *@
-                                    <span id="lblRFPTERD" style="color:Red"> [Not set] </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: bold">Secondary Review</td>
-                                <td>
-                                    <span id="lblRFPCouncilMeeting" style="color:red"> [Not set] </span>
-                                    @* <asp:Label ID="lblRFPCouncilMeeting" runat="server" Text="[Not set]" /> *@
-                                </td>
-                                <td>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <br />
-            <div id="d3Timeline" runat="server" visible="false">
-                <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
-                <script type="text/javascript" id="d3Vis">
-
-                    // async function callBuildInitParamsAPI(xml) {
-                    //     // Get the values from the DOM elements
-                    //     var dropDownList1 = document.getElementById('DropDownList1').value;
-                    //     var dropDownList2 = document.getElementById('DropDownList2').value;
-                    //     var dropDownList2Count = document.getElementById('DropDownList2').options.length;
-                    //     var contractType = document.getElementById('ddlContractType').value;
-
-                    //     // Define the FetchCouncilRequest object
-                    //     var fetchCouncilRequest = {
-                    //         DropDownList1: dropDownList1,
-                    //         DropDownList2: dropDownList2 === "" ? "1" : dropDownList2,
-                    //         DropDownList2Count: dropDownList2Count,
-                    //         ContractType: contractType
-                    //     };
-
-                    //     // Convert the fetchCouncilRequest object to a query string
-                    //     var queryString = Object.keys(fetchCouncilRequest)
-                    //         .map(key => key + '=' + encodeURIComponent(fetchCouncilRequest[key]))
-                    //         .join('&');
-
-                    //     try {
-                    //         // Make the HTTP GET request to the endpoint
-                    //         let response = await fetch(`/api/timeline/buildinitparams?${queryString}`);
-
-                    //         if (!response.ok) {
-                    //             throw new Error('Network response was not ok');
-                    //         }
-
-                    //         let data = await response.json();
-                    //         return data;
-                    //     } catch (error) {
-                    //         console.error('There was a problem with the fetch operation:', error);
-                    //         throw error;
-                    //     }
-                    // }
-
-
-
-                </script>
-                @* <script type="text/javascript" src="~/js/mainTimeline.js"></script> *@
-            </div>
-
         </div>
+        <!--removed duplicate step 4-->
+
+        <div id="pnlBox5">
+            <div class="row ml-1">
+                <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
+                    <p>
+                        <strong>Step four:</strong> Below are the initial timeline deadline dates for the secondary review date you have selected&nbsp;
+                        <span>
+                            <asp:HyperLink runat="server" ID="PrintRFP" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
+                                <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
+                            </asp:HyperLink>
+                            <asp:Label ID="PrintRFPInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label>
+                        </span>
+                    </p>
+                    <table class="table" style="width: 100%; border: none;">
+                        <tr>
+                            <td style="font-weight: bold">NHLBI Concept Approval</td>
+                            <td>
+                                @* <asp:Label ID="" runat="server" Text="[Not set]" /> *@
+                                <span id="lblNHLBICCA" style="color:Red"> [Not set] </span>
+
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                Schedule CIDP Meeting<br />
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblDRNI" runat="server" Text="[Not set]" /></td> *@
+                                <span id="lblDRNI" style="color:Red"> [Not set] </span>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">Consult with Director, Office of Grants Management</td>
+                            <td>
+                                @* <asp:Label ID="lblCWOSR"  runat="server" Text="[Not set]" /> *@
+                                <span id="lblCWOSR" style="color:Red"> [Not set] </span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">Acquisition Plan Approval</td>
+                            <td>
+                                @* <asp:Label ID="lblRFPAPA" runat="server" Text="[Not set]" /> *@
+                                <span id="lblRFPAPA" style="color:Red"> [Not set] </span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblRFPFBONDesc" runat="server" Text="FedBizOpps Notice"></asp:Label> *@
+                                <span id="lblRFPFBONDesc" style="font-weight:bold"> FedBizOpps Notice</span>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblRFPFBON" runat="server" Text="[Not set]" /> *@
+                                <span id="lblRFPFBON" style="color:Red"> [Not set] </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">Release RFP</td>
+                            <td>
+                                @* <asp:Label ID="lblRFPReleaseRFP" runat="server" Text="[Not set]" /> *@
+                                <span id="lblRFPReleaseRFP" style="color:Red"> [Not set] </span>
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span Id="lblNumberODaysRFP" style="font-weight:bold"> Enter the number of days desired between the RFP release date and the proposal receipt date</span>
+                                @*style="font-weight: bold"></span><br />*@
+                                @*<asp:TextBox ID="NumberOfDaysRFP" runat="server" AutoPostBack="true" aria-label="NumberOfDays" Width="36" Text="30" OnTextChanged="RFPDays_TextChanged" /><br />*@
+                                @*<asp:Label ID="lblRFPError" runat="server" Visible="false" ForeColor="red" Font-Size="10px"></asp:Label>*@
+                            </td>
+                            <td>
+                                <span id="lblNumberODaysRFP" style="color:Red"> [Not set] </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblRFPLettersofIntentDesc" runat="server" Text="Letters of Intent"></asp:Label> *@
+                                <span id="lblRFPLettersofIntentDesc" style="font-weight:bold"> Letters of Intent </span>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblRFPLettersofIntent" runat="server" Text="[Not set]" /> *@
+                                <span id="lblRFPLettersofIntent" style="color:Red"> [Not set] </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblRFPPRDDesc" runat="server" Text="Proposal Receipt Date"></asp:Label> *@
+                                <span id="lblRFPPRDDesc" style="font-weight:bold"> Proposal Receipt Date </span>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblRFPPRD" runat="server" Text="[Not set]" /> *@
+                                <span id="lblRFPPRD" style="color:Red"> [Not set] </span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">Primary Technical Review</td>
+                            <td>
+                                @* <asp:Label ID="lblRFPFirstReivew" runat="server" Text="[Not set]" /> *@
+                                <span id="lblRFPFirstReivew" style="color:Red"> [Not set] </span>
+
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">
+                                @* <asp:Label ID="lblRFPTERDDesc" runat="server" Text="Technical Evaluation Reports Due"></asp:Label> *@
+                                <span id="lblRFPTERDDesc" style="font:bold">Technical Evaluation Reports Due </span>
+                            </td>
+                            <td>
+                                @* <asp:Label ID="lblRFPTERD" runat="server" Text="[Not set]" /> *@
+                                <span id="lblRFPTERD" style="color:Red"> [Not set] </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold">Secondary Review</td>
+                            <td>
+                                <span id="lblRFPCouncilMeeting" style="color:red"> [Not set] </span>
+                                @* <asp:Label ID="lblRFPCouncilMeeting" runat="server" Text="[Not set]" /> *@
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div id="d3Timeline" visible="false">
+            <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
+            <script type="text/javascript" id="d3Vis">
+
+                //Display Timeline
+
+            </script>
+            @* <script type="text/javascript" src="~/js/mainTimeline.js"></script> *@
+        </div>
+
     </div>
 </div>
+
 <script type="text/javascript">
     var xmlDoc = "";
     var ddlContractType = document.getElementById("ddlContractType");
@@ -707,17 +670,14 @@
         //ChangeDatesByNumberOfDays(Convert.ToInt32("NumberOfDaysPub"));
         // Example usage:
         xmlDoc = result.xmlDoc;
-        // callBuildInitParamsAPI().then(data => {
-        //     console.log('API Response:', data);
-        //     xmlDoc = data;
-        // }).catch(error => {
-        //     console.error('API Call Failed: (callBuildInitParamsAPI)', error);
-        // });
+
 
         xmlDoc = xmlDoc.split(',');
-
-        initTimeline();
         const d3Timeline = document.getElementById('d3Timeline');
+        d3Timeline.innerHTML = "";
+        initTimeline();
+        
+
         d3Timeline.style.display = "block";
 
 

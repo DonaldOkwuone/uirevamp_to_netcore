@@ -271,49 +271,7 @@ namespace ITG_vs.Controllers
             }
             return Ok(councilMeeting);
         }
-
-
-        [Route("buildinitparams")]
-        [HttpGet]
-        public string BuildInitParams([FromQuery] FetchCouncilRequest fetchCouncilRequest)
-        {
-            string strFiscalYear = fetchCouncilRequest.DropDownList1;
-            string strMeetingDate = fetchCouncilRequest.DropDownList2;
-
-            if (strFiscalYear.Length == 0 || strFiscalYear.Length == 0)
-            {
-                return string.Empty;
-            }
-            else
-            {
-                StringBuilder sb = new StringBuilder();
-                if (fetchCouncilRequest.ContractType.Equals("RFA"))
-                {
-
-                    foreach (XmlElement element in GetXmlDocument(fetchCouncilRequest.ContractType).GetElementsByTagName("event"))
-                    {
-                        if (element.Attributes[1].Value != "")
-                        {
-                            sb.Append(element.Attributes[0].Value + "=" + element.Attributes[1].Value
-                                + "=" + element.Attributes[2].Value + ",");
-                        }
-                    }
-                }
-                else if (fetchCouncilRequest.ContractType.Equals("RFP"))
-                {
-                    foreach (XmlElement element in GetXmlDocument(fetchCouncilRequest.ContractType).GetElementsByTagName("event"))
-                    {
-                        if (element.Attributes[1].Value != "")
-                        {
-                            sb.Append(element.Attributes[0].Value.Replace(",", "") + "=" + element.Attributes[1].Value
-                                + "=" + element.Attributes[2].Value + ",");
-                        }
-                    }
-                }
-                return sb.ToString();
-            }
-        }
-
+ 
         private string BuildInitParamsLocal(FetchCouncilRequest fetchCouncilRequest, XmlDocument xmlDocument)
         {
             string strFiscalYear = fetchCouncilRequest.DropDownList1;

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITG-vs", "ITG-vs\ITG-vs.csproj", "{7EF183B3-D380-41CC-8D0F-799817892B60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITG", "ITG-vs\ITG.csproj", "{7EF183B3-D380-41CC-8D0F-799817892B60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{3214BB22-40ED-434C-959F-D410EF4B5D6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{3214BB22-40ED-434C-959F-D410EF4B5D6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

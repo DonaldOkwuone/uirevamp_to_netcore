@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wqauRmQYYoowlXy+rfHl6J/SszMTGg0OGOxIYEnGlH/DeF+vckILiP72UJwFG8A7TdsbpHJHokF7qHB7o2gPRw==",
+  "dgSpecHash": "KrlDgKYjQf1ILboTKhiqFpz72nCBjMPhM/eKQHn7mlfNJQk7fM29+X+9YW8k6HNlMmUSlm0zQrZ60xylo3d+zw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG-vs.csproj",
+  "projectFilePath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",

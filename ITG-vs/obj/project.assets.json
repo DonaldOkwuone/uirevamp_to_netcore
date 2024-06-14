@@ -469,9 +469,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG-vs.csproj",
-      "projectName": "ITG-vs",
-      "projectPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG-vs.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG.csproj",
+      "projectName": "ITG",
+      "projectPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\obj\\",
       "projectStyle": "PackageReference",
