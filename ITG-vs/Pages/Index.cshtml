@@ -465,20 +465,59 @@
                     </div>
                 </div>
             </div>
-@* 
+
             <br />
             <div id="d3Timeline" runat="server" visible="false">
                 <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
                 <script type="text/javascript" id="d3Vis">
-                    var xmlDoc = '<%=BuildInitParams()%>'.split(',');
+
+                    // async function callBuildInitParamsAPI(xml) {
+                    //     // Get the values from the DOM elements
+                    //     var dropDownList1 = document.getElementById('DropDownList1').value;
+                    //     var dropDownList2 = document.getElementById('DropDownList2').value;
+                    //     var dropDownList2Count = document.getElementById('DropDownList2').options.length;
+                    //     var contractType = document.getElementById('ddlContractType').value;
+
+                    //     // Define the FetchCouncilRequest object
+                    //     var fetchCouncilRequest = {
+                    //         DropDownList1: dropDownList1,
+                    //         DropDownList2: dropDownList2 === "" ? "1" : dropDownList2,
+                    //         DropDownList2Count: dropDownList2Count,
+                    //         ContractType: contractType
+                    //     };
+
+                    //     // Convert the fetchCouncilRequest object to a query string
+                    //     var queryString = Object.keys(fetchCouncilRequest)
+                    //         .map(key => key + '=' + encodeURIComponent(fetchCouncilRequest[key]))
+                    //         .join('&');
+
+                    //     try {
+                    //         // Make the HTTP GET request to the endpoint
+                    //         let response = await fetch(`/api/timeline/buildinitparams?${queryString}`);
+
+                    //         if (!response.ok) {
+                    //             throw new Error('Network response was not ok');
+                    //         }
+
+                    //         let data = await response.json();
+                    //         return data;
+                    //     } catch (error) {
+                    //         console.error('There was a problem with the fetch operation:', error);
+                    //         throw error;
+                    //     }
+                    // }
+
+
+
                 </script>
-                <script type="text/javascript" src="~/js/mainTimeline.js"></script>
-            </div> *@
+                @* <script type="text/javascript" src="~/js/mainTimeline.js"></script> *@
+            </div>
 
         </div>
     </div>
 </div>
 <script type="text/javascript">
+    var xmlDoc = "";
     var ddlContractType = document.getElementById("ddlContractType");
     var pnlBox2 = document.getElementById("pnlBox2");
     var lblStep3 = document.getElementById("lblStep3");
@@ -501,6 +540,10 @@
         const DropDownList1 = document.getElementById('DropDownList1');
         DropDownList1.addEventListener('change', function () {
             handleDropdown1Change(this.value);
+        });
+        const DropDownList2 = document.getElementById('DropDownList2');
+        DropDownList2.addEventListener('change', function () {
+            handleDropdown2Change(this.value);
         });
     });
 
@@ -569,15 +612,15 @@
         }
         if (ddlContractType.value === "RFP") {
             handRFP_Selectted();
-        } else if (ddlContractType.value === "RFA"){
+        } else if (ddlContractType.value === "RFA") {
             handRFA_Selectted();
-        }else{
+        } else {
             document.getElementById('pnlBox2').style.display = 'none';
             document.getElementById('pnlBox3').style.display = 'none';
             document.getElementById('pnlBox5').style.display = 'none';
         }
     }
-    function handRFA_Selectted(){
+    function handRFA_Selectted() {
         pnlBox2.style.display = "block"; // Make the panel visible
         lblStep3.textContent = "Select Anticipated Council";
 
@@ -595,7 +638,7 @@
             printRFAInactive.style.display = "block"; // Make the element visible
         }
     }
-    function handRFP_Selectted(){
+    function handRFP_Selectted() {
         pnlBox2.style.display = "block"; // Make the panel visible
         lblStep3.textContent = "Select Anticipated Quarter for Secondary Review";
 
@@ -648,18 +691,108 @@
 
     }
 
-    function handleDropdown2Change(selectedValue) {
+    async function handleDropdown2Change(selectedValue) {
         const ddlContractType = document.getElementById('ddlContractType');
         const DropDownList1 = document.getElementById('DropDownList1');
-        const apiEndpoint = `/api/Timeline/FilterCouncil?DropDownList2=${selectedValue}&DropDownList1=${DropDownList1}&ContractType=${ddlContractType}`
+        //const apiEndpoint = `/api/Timeline/FilterCouncil?DropDownList2=${selectedValue}&DropDownList1=${DropDownList1}&ContractType=${ddlContractType}`;
+
+        let result = await callFilterCouncilAPI();
+        console.log('API call result:', result);
+        CheckDateForColorChange("lblCouncilMeeting", result.dtDate);
+        CheckDateForColorChange("lblSummaryStatementsComplete", result.dtDate);
+        CheckDateForColorChange("lblPeerReviewMeeting", result.dtTemp1);
+        CheckDateForColorChange("lblApplicationReceiptDate", result.dtTemp2);
+        CheckDateForColorChange("lblLettersOfIntent", result.dtTemp3);
+        CheckDateForColorChange("lblNIHGuidePublication", result.dtTemp4);
+        //ChangeDatesByNumberOfDays(Convert.ToInt32("NumberOfDaysPub"));
+        // Example usage:
+        xmlDoc = result.xmlDoc;
+        // callBuildInitParamsAPI().then(data => {
+        //     console.log('API Response:', data);
+        //     xmlDoc = data;
+        // }).catch(error => {
+        //     console.error('API Call Failed: (callBuildInitParamsAPI)', error);
+        // });
+
+        xmlDoc = xmlDoc.split(',');
+
+        initTimeline();
+        const d3Timeline = document.getElementById('d3Timeline');
+        d3Timeline.style.display = "block";
+
+
+
     }
+
+    function CheckDateForColorChange(lblMilestoneId, date) {
+        try {
+            // Get the current date and time
+            var now = new Date();
+
+            // Convert the input date string to a Date object
+            var milestoneDate = new Date(date);
+
+            // Get the HTML element by its ID
+            var lblMilestone = document.getElementById(lblMilestoneId);
+
+            // Check if the date is in the past and set the color accordingly
+            if (milestoneDate < now) {
+                lblMilestone.style.color = 'red';
+            } else {
+                lblMilestone.style.color = 'black';
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+            //throw error;
+        }
+    }
+
+    async function callFilterCouncilAPI() {
+        // Define the FetchCouncilRequest object
+        var dropDownList2 = document.getElementById('DropDownList2');
+        var strFiscalYear = document.getElementById('DropDownList1').value; // Assuming this is where strFiscalYear comes from
+
+        var fetchCouncilRequest = {
+            DropDownList1: strFiscalYear,
+            DropDownList2: (dropDownList2.value == "") ? 1 : dropDownList2.value,
+            DropDownList2Count: dropDownList2.options.length,
+            ContractType: document.getElementById('ddlContractType').value
+        };
+        console.log(fetchCouncilRequest);
+
+        // Convert the fetchCouncilRequest object to a query string
+        var queryString = Object.keys(fetchCouncilRequest)
+            .map(key => key + '=' + encodeURIComponent(fetchCouncilRequest[key]))
+            .join('&');
+        console.log(queryString);
+
+        try {
+            // Make the HTTP GET request to the endpoint
+            let response = await fetch(`/api/timeline/filtercouncil?${queryString}`);
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            let data = await response.json();
+
+            // Return the response data to the caller
+            return data;
+
+        } catch (error) {
+            // Handle errors here
+            console.error('There was a problem with the fetch operation:', error);
+            throw error; // Re-throw the error to be handled by the caller if necessary
+        }
+    }
+
     function fillMeetingDates(strFiscalYear) {
         // Define the FetchCouncilRequest object
         var dropDownList2 = document.getElementById('DropDownList2');
 
         var fetchCouncilRequest = {
             DropDownList1: strFiscalYear,
-            DropDownList2: (dropDownList2.value == "")? 1: dropDownList2.value, // You may need to provide a value for DropDownList2 if necessary
+            DropDownList2: (dropDownList2.value == "") ? 1 : dropDownList2.value, // You may need to provide a value for DropDownList2 if necessary
             DropDownList2Count: document.getElementById('DropDownList2').options.length,
             ContractType: document.getElementById('ddlContractType').value  // You may need to provide a value for ContractType if necessary
         };
@@ -732,4 +865,6 @@
 
 
 </script>
+
+<script type="text/javascript" src="~/js/mainTimeline.js"></script>
 

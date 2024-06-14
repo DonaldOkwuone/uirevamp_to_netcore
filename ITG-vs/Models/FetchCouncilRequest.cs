@@ -4,7 +4,7 @@
     {
         public string DropDownList1 { get; set; }
         public string DropDownList2 { get; set; }
-        public int DropDownList2Count { get; set; }
+        public int DropDownList2Count { get; set; } = 0;
         public string ContractType { get; set; }
     }
 }

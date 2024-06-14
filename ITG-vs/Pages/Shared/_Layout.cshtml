@@ -142,14 +142,7 @@
     <script type="text/javascript">@Settings.Get("AnalyticsFooterScript")</script>
     @await RenderSectionAsync("Scripts", required: false)
 
-    <br />
-    <div id="d3Timeline" runat="server" visible="false">
-        <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
-        <script type="text/javascript" id="d3Vis">
-            var xmlDoc = '<%=BuildInitParams()%>'.split(',');
-        </script>
-        <script type="text/javascript" src="~/js/mainTimeline.js"></script>
-    </div>
+   
    
     <footer class="border-top footer text-muted">
         <div class="container">
