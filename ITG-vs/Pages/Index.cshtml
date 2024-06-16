@@ -268,7 +268,7 @@
                                 <input name="NumberOfDaysPub" id="NumberOfDaysPub" type="text" value="60" onchange="" onkeypress="" id="NumberOfDaysPub" aria-label="NumberOfDays" style="width:36px;">
 
                                 @* <asp:Label ID="lblPubError" runat="server" Visible="false" ForeColor="red" Font-Size="10px"></asp:Label> *@
-                                @*<span id="lblPubError" style="color:red; font-size:10px"> Letters of Intent  </span>*@
+                                <span id="lblPubError" style="color:red; font-size:10px; display:none"> </span>
                             </td>
                         </tr>
                         <tr>
@@ -466,7 +466,7 @@
         </div>
 
         <br />
-        <div id="d3Timeline" visible="false">
+        <div id="d3Timeline" visible="false" style="padding:4px;">
             <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
             <script type="text/javascript" id="d3Vis">
 
@@ -475,7 +475,7 @@
             </script>
             @* <script type="text/javascript" src="~/js/mainTimeline.js"></script> *@
         </div>
-
+        <br />
     </div>
 </div>
 
@@ -668,6 +668,17 @@
         CheckDateForColorChange("lblLettersOfIntent", result.dtTemp3);
         CheckDateForColorChange("lblNIHGuidePublication", result.dtTemp4);
         //ChangeDatesByNumberOfDays(Convert.ToInt32("NumberOfDaysPub"));
+        CheckDateForColorChange("lblNIHGuidePublication", result.dtDate2);
+        CheckDateForColorChange("lblIdeaForum", result.roundDate);
+        CheckDateForColorChange("lblBeeMeeting", result.roundDate2);
+        CheckDateForColorChange("lblNHLBICouncilConceptClearance", result.roundDate3);
+        CheckDateForColorChange("lblROSubmitsToNIHGuide", result.dtTemp5);
+        CheckDateForColorChange("lblMemo3", result.dtTemp6)
+        CheckDateForColorChange("lblSubmitDERADraft", result.dtTemp7);
+        CheckDateForColorChange("lblConsultWithReviewBranch", result.dtTemp8);
+        CheckDateForColorChange("lblMemo2", result.dtTemp8);
+
+        updateRFALabels(result);
         // Example usage:
         xmlDoc = result.xmlDoc;
 
@@ -676,12 +687,37 @@
         const d3Timeline = document.getElementById('d3Timeline');
         d3Timeline.innerHTML = "";
         initTimeline();
-        
+
 
         d3Timeline.style.display = "block";
 
 
 
+    }
+    function updateRFALabels(result) {
+        const labelIds = [
+            'lblCouncilMeeting',
+            'lblSummaryStatementsComplete',
+            'lblPeerReviewMeeting',
+            'lblApplicationReceiptDate',
+            'lblLettersOfIntent',
+            'lblNIHGuidePublication',
+            'lblMemo3',
+            'lblIdeaForum',
+            'lblBeeMeeting',
+            'lblNHLBICouncilConceptClearance',
+            'lblROSubmitsToNIHGuide',
+            'lblSubmitDERADraft',
+            'lblConsultWithReviewBranch',
+            'lblMemo2'
+        ];
+
+        labelIds.forEach(id => {
+            const element = document.getElementById(id);
+            if (element && result.hasOwnProperty(id)) {
+                element.textContent = result[id];
+            }
+        });
     }
 
     function CheckDateForColorChange(lblMilestoneId, date) {

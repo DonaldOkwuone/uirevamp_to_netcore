@@ -136,6 +136,63 @@ namespace Services
                 //tblPrint.Rows.Add(tr);
             }
         }
+        public string GetPartOfMonth(DateTime dtDate)
+        {
+            if (dtDate.Day < 11)
+            {
+                return "Early ";
+            }
+            else if (dtDate.Day < 21)
+            {
+                return "Mid-";
+            }
+            else
+            {
+                return "End ";
+            }
+        }
+        public Tuple<string, List<DateTime>> GetConceptClearanceDates(DateTime dtDate)
+        {
+            int year = dtDate.Year;
+
+            List<DateTime> round1Dates = GetRound1Dates(year);
+            List<DateTime> round2DatesPrevYear = GetRound2Dates(year - 1);
+            List<DateTime> round2DatesCurrYear = GetRound2Dates(year);
+
+            // Before May, Set to October of previous year
+            if (DateTime.Compare(dtDate, round1Dates[3]) < 0)
+            {
+                return Tuple.Create("Round 2", round2DatesPrevYear);
+            }
+            // Between May and October, Set to May of current year
+            else if (DateTime.Compare(dtDate, round1Dates[3]) >= 0 && DateTime.Compare(dtDate, round2DatesCurrYear[3]) < 0)
+            {
+                return Tuple.Create("Round 1", round1Dates);
+            }
+            // After October, Set to Ocotober of current year
+            else
+            {
+                return Tuple.Create("Round 2", round2DatesCurrYear);
+            }
+        }
+        public List<DateTime> GetRound1Dates(int year)
+        {
+            return new List<DateTime>() {
+            Convert.ToDateTime("12/15/" + (year - 1)),
+            Convert.ToDateTime("2/7/" + year),
+            Convert.ToDateTime("4/15/" + year),
+            Convert.ToDateTime("5/15/" + year)
+        };
+        }
+        public List<DateTime> GetRound2Dates(int year)
+        {
+            return new List<DateTime>() {
+            Convert.ToDateTime("5/15/" + year),
+            Convert.ToDateTime("6/28/" + year),
+            Convert.ToDateTime("9/1/" + year),
+            Convert.ToDateTime("10/15/" + year)
+        };
+        }
 
     }
 }

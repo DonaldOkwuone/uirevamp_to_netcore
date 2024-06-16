@@ -17,6 +17,8 @@ namespace ITG_vs.Controllers
     {
         private readonly IWebHostEnvironment env;
         private readonly ITimelineService timelineService;
+        private XmlDocument xmlTimeline { get; set; }
+        private CouncilMeeting councilMeeting { get; set; }
 
         public TimelineController(IWebHostEnvironment env, ITimelineService timelineService)
         {
@@ -145,11 +147,11 @@ namespace ITG_vs.Controllers
             string strFiscalYear = fetchCouncilRequest.DropDownList1;
             string strMeetingDate = fetchCouncilRequest.DropDownList2;
             string strPath = Path.Combine(env.WebRootPath, "xml", "RFA", "Timeline.xml");
-            XmlDocument xmlTimeline = new XmlDocument();
-            string xmlDoc = String.Empty;
+            xmlTimeline = new XmlDocument();
+            //string xmlDoc = String.Empty;
             xmlTimeline.Load(strPath);
 
-            CouncilMeeting councilMeeting = new CouncilMeeting();
+            councilMeeting = new CouncilMeeting();
 
             if (!string.IsNullOrEmpty(strFiscalYear) && !string.IsNullOrEmpty(strMeetingDate))
             {
@@ -207,7 +209,7 @@ namespace ITG_vs.Controllers
 
                         councilMeeting.NumberOfDaysPub = "60";
                         //NumberOfDaysPub.Text = "60";
-                        ChangeDatesByNumberOfDays(Convert.ToInt32(councilMeeting.NumberOfDaysPub));
+                        ChangeDatesByNumberOfDays(Convert.ToInt32(councilMeeting.NumberOfDaysPub), fetchCouncilRequest);
                         councilMeeting.xmlDoc = BuildInitParamsLocal(fetchCouncilRequest, xmlTimeline);
                         //ChangeDatesByNumberOfDays(Convert.ToInt32(NumberOfDaysPub.Text));
                         //Initialize timeline data, make timeline visible
@@ -271,7 +273,7 @@ namespace ITG_vs.Controllers
             }
             return Ok(councilMeeting);
         }
- 
+
         private string BuildInitParamsLocal(FetchCouncilRequest fetchCouncilRequest, XmlDocument xmlDocument)
         {
             string strFiscalYear = fetchCouncilRequest.DropDownList1;
@@ -530,144 +532,154 @@ namespace ITG_vs.Controllers
             }
         }
 
-        private void ChangeDatesByNumberOfDays(int intDaysAdded)
+        private void ChangeDatesByNumberOfDays(int intDaysAdded, FetchCouncilRequest fetchCouncilRequest)
         {
-            //try
-            //{
-            //    if (ddlContractType.SelectedItem.Value.Equals("RFA"))
-            //    {
-            //        DateTime dtDate = Convert.ToDateTime(Timeline.Date(xmlTimeline, "Application Due Date"));
-            //        dtDate = dtDate.AddDays(-intDaysAdded);
+            try
+            {
+                if (fetchCouncilRequest.ContractType.Equals("RFA"))
+                {
+                    DateTime dtDate = Convert.ToDateTime(timelineService.Date(xmlTimeline, "Application Due Date"));
+                    dtDate = dtDate.AddDays(-intDaysAdded);
 
-            //        dtDate = CheckDate.AdjustRFADate(dtDate);
+                    dtDate = CheckDate.AdjustRFADate(dtDate);
 
-            //        lblNIHGuidePublication.Text = dtDate.ToShortDateString();
-            //        Timeline.EditDate(xmlTimeline, "NIH Guide Publication", dtDate.ToShortDateString());
-            //        CheckDateForColorChange(lblNIHGuidePublication, dtDate);
+                    councilMeeting.lblNIHGuidePublication = dtDate.ToShortDateString();
+                    //lblNIHGuidePublication.Text = dtDate.ToShortDateString();
+                    timelineService.EditDate(xmlTimeline, "NIH Guide Publication", dtDate.ToShortDateString());
+                    councilMeeting.dtDate2 = dtDate;
+                    //CheckDateForColorChange(lblNIHGuidePublication, dtDate);
 
-            //        DateTime dtTemp = CheckDate.SubtractMonth(dtDate, 4);
-            //        dtTemp = CheckDate.AdjustRFADate(dtTemp);
+                    DateTime dtTemp = CheckDate.SubtractMonth(dtDate, 4);
+                    dtTemp = CheckDate.AdjustRFADate(dtTemp);
 
-            //        if (lblPubError != null)
-            //            lblPubError.Visible = false;
+                    //if (lblPubError != null)
+                    //    lblPubError.Visible = false;
 
-            //        //Initialize timeline data, make timeline visible
-            //        ClientScript.RegisterStartupScript(GetType(), "hwa", "initTimeline();", true);
-            //        d3Timeline.Visible = true;
+                    //Initialize timeline data, make timeline visible
+                    //ClientScript.RegisterStartupScript(GetType(), "hwa", "initTimeline();", true);
+                    //d3Timeline.Visible = true;
 
-            //        Tuple<string, List<DateTime>> roundData = GetConceptClearanceDates(dtTemp);
-            //        List<DateTime> roundDates = roundData.Item2;
-            //        string ideaForumStartText =
-            //            GetPartOfMonth(roundDates[0]) + roundDates[0].ToString("MMMM") + " " + roundDates[0].Year;
-            //        string ideaForumEndText =
-            //            GetPartOfMonth(roundDates[1]) + roundDates[1].ToString("MMMM") + " " + roundDates[1].Year;
-            //        string ideaForumText = ideaForumStartText + " - " + ideaForumEndText;
-            //        string beeMeetingText = roundDates[2].ToString("MMMM") + " " + roundDates[2].Year;
-            //        string conceptClearanceText = roundDates[3].ToString("MMMM") + " " + roundDates[3].Year;
-            //        lblCouncilRound.Text = " - " + roundData.Item1;
+                    Tuple<string, List<DateTime>> roundData = timelineService.GetConceptClearanceDates(dtTemp);
+                    List<DateTime> roundDates = roundData.Item2;
+                    string ideaForumStartText =
+                        timelineService.GetPartOfMonth(roundDates[0]) + roundDates[0].ToString("MMMM") + " " + roundDates[0].Year;
+                    string ideaForumEndText =
+                        timelineService.GetPartOfMonth(roundDates[1]) + roundDates[1].ToString("MMMM") + " " + roundDates[1].Year;
+                    string ideaForumText = ideaForumStartText + " - " + ideaForumEndText;
+                    string beeMeetingText = roundDates[2].ToString("MMMM") + " " + roundDates[2].Year;
+                    string conceptClearanceText = roundDates[3].ToString("MMMM") + " " + roundDates[3].Year;
+                    councilMeeting.lblCouncilRound = " - " + roundData.Item1;
 
-            //        lblIdeaForum.Text = ideaForumText;
-            //        Timeline.EditDate(xmlTimeline, "Idea Forum", roundDates[1].ToShortDateString(), ideaForumText);
-            //        CheckDateForColorChange(lblIdeaForum, roundDates[1]);
+                    councilMeeting.lblIdeaForum = ideaForumText;
+                    timelineService.EditDate(xmlTimeline, "Idea Forum", roundDates[1].ToShortDateString(), ideaForumText);
+                    councilMeeting.roundDate = roundDates[1];
+                    //CheckDateForColorChange(lblIdeaForum, roundDates[1]);
 
-            //        lblBeeMeeting.Text = beeMeetingText;
-            //        Timeline.EditDate(xmlTimeline, "BEE Meeting", roundDates[2].ToShortDateString(), beeMeetingText);
-            //        CheckDateForColorChange(lblBeeMeeting, roundDates[2]);
+                    councilMeeting.lblBeeMeeting = beeMeetingText;
+                    timelineService.EditDate(xmlTimeline, "BEE Meeting", roundDates[2].ToShortDateString(), beeMeetingText);
+                    councilMeeting.roundDate2 = roundDates[2];
+                    //CheckDateForColorChange(lblBeeMeeting, roundDates[2]);
 
-            //        lblNHLBICouncilConceptClearance.Text = conceptClearanceText;
-            //        Timeline.EditDate(xmlTimeline, "NHLBI Council Concept Clearance", roundDates[3].ToShortDateString(), conceptClearanceText);
-            //        CheckDateForColorChange(lblNHLBICouncilConceptClearance, roundDates[3]);
+                    councilMeeting.lblNHLBICouncilConceptClearance = conceptClearanceText;
+                    timelineService.EditDate(xmlTimeline, "NHLBI Council Concept Clearance", roundDates[3].ToShortDateString(), conceptClearanceText);
+                    councilMeeting.roundDate3= roundDates[3];
+                    //CheckDateForColorChange(lblNHLBICouncilConceptClearance, roundDates[3]);
 
-            //        dtTemp = CheckDate.SubtractMonth(dtDate, 1);
-            //        dtTemp = CheckDate.AdjustRFADate(dtTemp);
-            //        lblROSubmitsToNIHGuide.Text = dtTemp.ToShortDateString();
-            //        Timeline.EditDate(xmlTimeline, "OFDR Submits FOA Draft to NIH Guide", dtTemp.ToShortDateString());
-            //        CheckDateForColorChange(lblROSubmitsToNIHGuide, dtTemp);
+                    dtTemp = CheckDate.SubtractMonth(dtDate, 1);
+                    dtTemp = CheckDate.AdjustRFADate(dtTemp);
+                    councilMeeting.lblROSubmitsToNIHGuide = dtTemp.ToShortDateString();
+                    timelineService.EditDate(xmlTimeline, "OFDR Submits FOA Draft to NIH Guide", dtTemp.ToShortDateString());
+                    councilMeeting.dtTemp5 = dtTemp;
+                    //CheckDateForColorChange(lblROSubmitsToNIHGuide, dtTemp);
 
-            //        dtTemp = CheckDate.SubtractMonth(dtDate, 1);
-            //        dtTemp = dtTemp.AddDays(-2);// need to ask Pablo about the number of days added
-            //        dtTemp = CheckDate.AdjustRFADate(dtTemp);
-            //        lblMemo3.Text = dtTemp.ToShortDateString();
-            //        Timeline.EditDate(xmlTimeline, "DERA Director’s Approval to Publish the FOA in the NIH Guide", dtTemp.ToShortDateString());
-            //        CheckDateForColorChange(lblMemo3, dtTemp);
+                    dtTemp = CheckDate.SubtractMonth(dtDate, 1);
+                    dtTemp = dtTemp.AddDays(-2);// need to ask Pablo about the number of days added
+                    dtTemp = CheckDate.AdjustRFADate(dtTemp);
+                    councilMeeting.lblMemo3 = dtTemp.ToShortDateString();
+                    timelineService.EditDate(xmlTimeline, "DERA Director’s Approval to Publish the FOA in the NIH Guide", dtTemp.ToShortDateString());
+                    councilMeeting.dtTemp6 = dtTemp;
+                    //CheckDateForColorChange(lblMemo3, dtTemp);
 
-            //        dtTemp = CheckDate.SubtractMonth(dtDate, 2);
-            //        dtTemp = dtTemp.AddDays(-15);
-            //        dtTemp = CheckDate.AdjustRFADate(dtTemp);
-            //        lblSubmitDERADraft.Text = dtTemp.ToShortDateString();
-            //        Timeline.EditDate(xmlTimeline, "Submit FOA Draft for DERA Review", dtTemp.ToShortDateString());
-            //        CheckDateForColorChange(lblSubmitDERADraft, dtTemp);
+                    dtTemp = CheckDate.SubtractMonth(dtDate, 2);
+                    dtTemp = dtTemp.AddDays(-15);
+                    dtTemp = CheckDate.AdjustRFADate(dtTemp);
+                    councilMeeting.lblSubmitDERADraft = dtTemp.ToShortDateString();
+                    timelineService.EditDate(xmlTimeline, "Submit FOA Draft for DERA Review", dtTemp.ToShortDateString());
+                    councilMeeting.dtTemp7 = dtTemp;
+                    //CheckDateForColorChange(lblSubmitDERADraft, dtTemp);
 
-            //        dtTemp = CheckDate.SubtractMonth(dtDate, 3);
-            //        dtTemp = dtTemp.AddDays(2);// need to ask Pablo about the number of days added
-            //        dtTemp = CheckDate.AdjustRFADate(dtTemp);
-            //        lblConsultWithReviewBranch.Text = dtTemp.ToShortDateString();
-            //        Timeline.EditDate(xmlTimeline, "Consult with Office of Grants Management", dtTemp.ToShortDateString());
-            //        CheckDateForColorChange(lblConsultWithReviewBranch, dtTemp);
+                    dtTemp = CheckDate.SubtractMonth(dtDate, 3);
+                    dtTemp = dtTemp.AddDays(2);// need to ask Pablo about the number of days added
+                    dtTemp = CheckDate.AdjustRFADate(dtTemp);
+                    councilMeeting.lblConsultWithReviewBranch = dtTemp.ToShortDateString();
+                    timelineService.EditDate(xmlTimeline, "Consult with Office of Grants Management", dtTemp.ToShortDateString());
+                    councilMeeting.dtTemp8 = dtTemp;
+                    //CheckDateForColorChange(lblConsultWithReviewBranch, dtTemp);
 
-            //        //subtracting 10 businessdays from Consult with review branch.
-            //        dtTemp = CheckDate.AddBusinessDays(dtTemp, -10);
-            //        dtTemp = CheckDate.AdjustRFADate(dtTemp);
-            //        lblMemo2.Text = dtTemp.ToShortDateString();
-            //        Timeline.EditDate(xmlTimeline, "Schedule FOA Development Meeting", dtTemp.ToShortDateString());
-            //        CheckDateForColorChange(lblMemo2, dtTemp);
-            //    }
-            //    else if (ddlContractType.SelectedItem.Value.Equals("RFP"))
-            //    {
-            //        DateTime dtDate = Convert.ToDateTime(Timeline.Date(xmlTimelineRFP, "Letters of Intent"));
-            //        dtDate = CheckDate.SubtractDays(dtDate, 1);
-            //        dtDate = dtDate.AddDays(-intDaysAdded);
-            //        dtDate = CheckDate.AdjustRFPDate(dtDate);
+                    //subtracting 10 businessdays from Consult with review branch.
+                    dtTemp = CheckDate.AddBusinessDays(dtTemp, -10);
+                    dtTemp = CheckDate.AdjustRFADate(dtTemp);
+                    councilMeeting.lblMemo2 = dtTemp.ToShortDateString();
+                    timelineService.EditDate(xmlTimeline, "Schedule FOA Development Meeting", dtTemp.ToShortDateString());
+                    councilMeeting.dtTemp9 = dtTemp;
+                    //CheckDateForColorChange(lblMemo2, dtTemp);
+                }
+                else if (fetchCouncilRequest.ContractType.Equals("RFP"))
+                {
+                    //DateTime dtDate = Convert.ToDateTime(Timeline.Date(xmlTimelineRFP, "Letters of Intent"));
+                    //dtDate = CheckDate.SubtractDays(dtDate, 1);
+                    //dtDate = dtDate.AddDays(-intDaysAdded);
+                    //dtDate = CheckDate.AdjustRFPDate(dtDate);
 
-            //        lblRFPReleaseRFP.Text = dtDate.ToShortDateString();
-            //        CheckDateForColorChange(lblRFPReleaseRFP, dtDate);
-            //        Timeline.EditDate(xmlTimelineRFP, "Release RFP", dtDate.ToShortDateString());
+                    //lblRFPReleaseRFP.Text = dtDate.ToShortDateString();
+                    //CheckDateForColorChange(lblRFPReleaseRFP, dtDate);
+                    //Timeline.EditDate(xmlTimelineRFP, "Release RFP", dtDate.ToShortDateString());
 
-            //        DateTime dtTemp = CheckDate.SubtractDays(dtDate, 15);
-            //        dtTemp = CheckDate.AdjustRFPDate(dtTemp);
+                    //DateTime dtTemp = CheckDate.SubtractDays(dtDate, 15);
+                    //dtTemp = CheckDate.AdjustRFPDate(dtTemp);
 
-            //        if (lblRFPError != null)
-            //            lblRFPError.Visible = false;
+                    //if (lblRFPError != null)
+                    //    lblRFPError.Visible = false;
 
-            //        //Initialize timeline data, make timeline visible
-            //        ClientScript.RegisterStartupScript(GetType(), "hwa", "initTimeline();", true);
-            //        d3Timeline.Visible = true;
+                    ////Initialize timeline data, make timeline visible
+                    //ClientScript.RegisterStartupScript(GetType(), "hwa", "initTimeline();", true);
+                    //d3Timeline.Visible = true;
 
-            //        lblRFPFBON.Text = dtTemp.ToShortDateString();
-            //        CheckDateForColorChange(lblRFPFBON, dtTemp);
-            //        Timeline.EditDate(xmlTimelineRFP, "FedBizOpps Notice", dtTemp.ToShortDateString());
+                    //lblRFPFBON.Text = dtTemp.ToShortDateString();
+                    //CheckDateForColorChange(lblRFPFBON, dtTemp);
+                    //Timeline.EditDate(xmlTimelineRFP, "FedBizOpps Notice", dtTemp.ToShortDateString());
 
-            //        dtTemp = CheckDate.SubtractMonth(dtDate, 1);
-            //        dtTemp = CheckDate.SubtractDays(dtTemp, 15);
-            //        dtTemp = CheckDate.AdjustRFPDate(dtTemp);
-            //        lblRFPAPA.Text = dtTemp.ToShortDateString();
-            //        CheckDateForColorChange(lblRFPAPA, dtTemp);
-            //        Timeline.EditDate(xmlTimelineRFP, "Acquisition Plan Approval", dtTemp.ToShortDateString());
+                    //dtTemp = CheckDate.SubtractMonth(dtDate, 1);
+                    //dtTemp = CheckDate.SubtractDays(dtTemp, 15);
+                    //dtTemp = CheckDate.AdjustRFPDate(dtTemp);
+                    //lblRFPAPA.Text = dtTemp.ToShortDateString();
+                    //CheckDateForColorChange(lblRFPAPA, dtTemp);
+                    //Timeline.EditDate(xmlTimelineRFP, "Acquisition Plan Approval", dtTemp.ToShortDateString());
 
-            //        dtTemp = CheckDate.SubtractMonth(dtDate, 2);
-            //        dtTemp = CheckDate.AdjustRFPDate(dtTemp);
-            //        lblCWOSR.Text = dtTemp.ToShortDateString();
-            //        CheckDateForColorChange(lblCWOSR, dtTemp);
-            //        Timeline.EditDate(xmlTimelineRFP, "Consult with Director, Office of Grants Management", dtTemp.ToShortDateString());
+                    //dtTemp = CheckDate.SubtractMonth(dtDate, 2);
+                    //dtTemp = CheckDate.AdjustRFPDate(dtTemp);
+                    //lblCWOSR.Text = dtTemp.ToShortDateString();
+                    //CheckDateForColorChange(lblCWOSR, dtTemp);
+                    //Timeline.EditDate(xmlTimelineRFP, "Consult with Director, Office of Grants Management", dtTemp.ToShortDateString());
 
-            //        dtTemp = CheckDate.SubtractMonth(dtDate, 3);
-            //        dtTemp = CheckDate.AdjustRFPDate(dtTemp);
-            //        lblDRNI.Text = dtTemp.ToShortDateString();
-            //        CheckDateForColorChange(lblDRNI, dtTemp);
-            //        timelineService.EditDate(xmlTimelineRFP, "Schedule CIDP Meeting", dtTemp.ToShortDateString());
+                    //dtTemp = CheckDate.SubtractMonth(dtDate, 3);
+                    //dtTemp = CheckDate.AdjustRFPDate(dtTemp);
+                    //lblDRNI.Text = dtTemp.ToShortDateString();
+                    //CheckDateForColorChange(lblDRNI, dtTemp);
+                    //timelineService.EditDate(xmlTimelineRFP, "Schedule CIDP Meeting", dtTemp.ToShortDateString());
 
-            //        //Subtracting 5 businessdays from dtTemp.
-            //        dtTemp = CheckDate.SubtractMonth(dtDate, 3);
-            //        dtTemp = CheckDate.SubtractDays(dtTemp, 15);
-            //        dtTemp = CheckDate.AdjustRFPDate(dtTemp);
-            //        lblNHLBICCA.Text = dtTemp.ToShortDateString();
-            //        CheckDateForColorChange(lblNHLBICCA, dtTemp);
-            //        Timeline.EditDate(xmlTimelineRFP, "NHLBI Concept Approval", dtTemp.ToShortDateString());
-            //    }
-            //}
-            //catch
-            //{
-            //}
+                    ////Subtracting 5 businessdays from dtTemp.
+                    //dtTemp = CheckDate.SubtractMonth(dtDate, 3);
+                    //dtTemp = CheckDate.SubtractDays(dtTemp, 15);
+                    //dtTemp = CheckDate.AdjustRFPDate(dtTemp);
+                    //lblNHLBICCA.Text = dtTemp.ToShortDateString();
+                    //CheckDateForColorChange(lblNHLBICCA, dtTemp);
+                    //Timeline.EditDate(xmlTimelineRFP, "NHLBI Concept Approval", dtTemp.ToShortDateString());
+                }
+            }
+            catch
+            {
+            }
         }
     }
 }

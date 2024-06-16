@@ -13,6 +13,10 @@ namespace Services.interfaces
         void EditDate(XmlDocument xmlDoc, string strEvent, string strDate, string strLabel);
         void EditDate(XmlDocument xmlDoc, string strEvent, string strDate);
         string EmailBody(XmlDocument xmlDoc);
+        Tuple<string, List<DateTime>> GetConceptClearanceDates(DateTime dtDate);
+        string GetPartOfMonth(DateTime dtDate);
+        List<DateTime> GetRound1Dates(int year);
+        List<DateTime> GetRound2Dates(int year);
         string OutputHtmlTable(XmlDocument xmlDoc);
         void Print(XmlDocument xmlDoc, string tblPrint);
 
