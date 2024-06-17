@@ -35,5 +35,20 @@
         public DateTime dtTemp7 { get; internal set; }
         public DateTime dtTemp8 { get; internal set; }
         public DateTime dtTemp9 { get; internal set; }
+
+        ///RFP
+        public string lblRFPReleaseRFP { get;  set; }
+        public string lblRFPFBON { get;  set; }
+        public string lblRFPAPA { get;  set; }
+        public string lblCWOSR { get;  set; }
+        public string lblDRNI { get;  set; }
+        public string lblNHLBICCA { get;  set; }
+        public string lblRFPCouncilMeeting { get; internal set; }
+        public string lblRFPTERD { get; internal set; }
+        public string lblRFPFirstReivew { get; internal set; }
+        public string lblRFPPRD { get; internal set; }
+        public string lblRFPLettersofIntent { get; internal set; }
+        public string NumberOfDaysRFP { get; internal set; }
+        public DateTime dtTemp10 { get; internal set; }
     }
 }

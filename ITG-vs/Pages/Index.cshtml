@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
+@section css {
+    <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
+}
 <div>
     <div id="content" class="col-md-10 m-auto">
         <h1>Welcome</h1>
@@ -76,14 +78,20 @@
                     <p>
                         <strong>Step four:</strong>
                         <span>
-                            <asp:Label ID="lbl_step4" runat="server">
+                            <span ID="lbl_step4" runat="server">
                                 Below are the initial timeline deadline dates for the Council date you've selected&nbsp;
-                                <asp:HyperLink runat="server" ID="PrintRFA" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
-                                    <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
+                                @* <asp:HyperLink runat="server" ID="PrintRFA" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
+                                <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
                                 </asp:HyperLink>
-                                <asp:Label ID="PrintRFAInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label>
-                            </asp:Label>
-                        </span>
+                                <asp:Label ID="PrintRFAInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label> *@
+                                <a id="PrintRFA" href="print" aria-label="Print" target="_blank">
+                                    <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
+                                </a>
+                                <span id="PrintRFAInactive"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true" title="Print"></i></span>
+
+
+                                </>
+                            </span>
                     </p>
                     <table class="table" style="width: 100%; border: none;">
                         <tr>
@@ -335,12 +343,11 @@
             <div class="row ml-1">
                 <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
                     <p>
-                        <strong>Step four:</strong> Below are the initial timeline deadline dates for the secondary review date you have selected&nbsp;
+                        <strong>Step four:</strong> Below are the initial timeline deadline dates for the secondary review date you have selected
                         <span>
-                            <asp:HyperLink runat="server" ID="PrintRFP" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
-                                <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
-                            </asp:HyperLink>
-                            <asp:Label ID="PrintRFPInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label>
+                            <a id="PrintRFP" href="print" aria-label="Print" target="_blank">
+                                <span id="PrintRFPInactive"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></span>
+                            </a>
                         </span>
                     </p>
                     <table class="table" style="width: 100%; border: none;">
@@ -400,12 +407,11 @@
                             <td>
                                 <span Id="lblNumberODaysRFP" style="font-weight:bold"> Enter the number of days desired between the RFP release date and the proposal receipt date</span>
                                 @*style="font-weight: bold"></span><br />*@
+                                <input id="NumberOfDaysRFP" aria-label="NumberOfDays" style="width:36px;" value="30"/><br />
                                 @*<asp:TextBox ID="NumberOfDaysRFP" runat="server" AutoPostBack="true" aria-label="NumberOfDays" Width="36" Text="30" OnTextChanged="RFPDays_TextChanged" /><br />*@
                                 @*<asp:Label ID="lblRFPError" runat="server" Visible="false" ForeColor="red" Font-Size="10px"></asp:Label>*@
                             </td>
-                            <td>
-                                <span id="lblNumberODaysRFP" style="color:Red"> [Not set] </span>
-                            </td>
+                           
                         </tr>
                         <tr>
                             <td style="font-weight: bold">
@@ -467,7 +473,7 @@
 
         <br />
         <div id="d3Timeline" visible="false" style="padding:4px;">
-            <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
+
             <script type="text/javascript" id="d3Vis">
 
                 //Display Timeline
@@ -492,6 +498,8 @@
     var printRFPInactive = document.getElementById("PrintRFPInactive");
     var printRFAInactive = document.getElementById("PrintRFAInactive");
     var printRFA = document.getElementById("PrintRFA");
+    var numberOfDaysPub = document.getElementById('NumberOfDaysPub');
+
     // var printRFPInactive = document.getElementById("printRFPInactive");
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -508,8 +516,49 @@
         DropDownList2.addEventListener('change', function () {
             handleDropdown2Change(this.value);
         });
+        numberOfDaysPub.addEventListener('change', function () {
+           var result = validateNumberOfDaysAPI();
+            
+        });
     });
 
+    function validateNumberOfDaysAPI(){
+
+        const fetchCouncilRequest = {
+            dropDownList1: dropDownList1.value,           // replace with actual value
+            dropDownList2: dropDownList2.value,      // replace with actual value
+            dropDownList2Count: dropDownList2.options.length,           // replace with actual value
+            contractType: ddlContractType.value              // replace with actual value
+        };
+        const url = `/api/Timeline/handlepublicationchangeofdate/${numberOfDaysPub.value}`;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(fetchCouncilRequest)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                console.log(">>>>>>>>>>" + data);
+                console.log(">>>>>>>>>>" + data.publicationDays);
+                xmlDoc = data.xmlDoc
+                refreshTimelineGragh(data);
+                numberOfDaysPub.value = data.publicationDays;
+                // Handle the response data here
+                return data;
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
     function initPage() {
         document.getElementById('pnlBox2').style.display = 'none';
         document.getElementById('pnlBox3').style.display = 'none';
@@ -560,7 +609,8 @@
                     console.log(data);
                     // You can add your logic here to process the data and update the UI accordingly
                     const DropDownList1 = document.getElementById('DropDownList1');
-
+                    DropDownList1.innerHTML = '';
+                    DropDownList1.innerHTML = '<option value="">Please select a year</option>';
                     // Populate the dropdown with the received data
                     data.forEach(item => {
                         const option = document.createElement('option');
@@ -660,40 +710,152 @@
         //const apiEndpoint = `/api/Timeline/FilterCouncil?DropDownList2=${selectedValue}&DropDownList1=${DropDownList1}&ContractType=${ddlContractType}`;
 
         let result = await callFilterCouncilAPI();
-        console.log('API call result:', result);
+        console.log(ddlContractType.value);
+        console.log(selectedValue);
+        console.log(DropDownList1);
+        console.log('API call result callFilterCouncilAPI:', result);
+        if (ddlContractType.value === 'RFA') {
+            console.log("running RFA");
+            updateRFADates(result);
+            updateRFALabels(result);
+            updateUIForRFA();
+            // Example usage:
+            refreshTimelineGragh(result);
+        } else if (ddlContractType.value === 'RFP') {
+
+            console.log("running RFP");
+            updateRFPDates(result);
+            updateRFPLabels(result);
+
+            refreshTimelineGragh(result);
+
+        }
+
+
+
+    }
+    function refreshTimelineGragh(result){
+        xmlDoc = result.xmlDoc;
+        xmlDoc = xmlDoc.split(',');
+        const d3Timeline = document.getElementById('d3Timeline');
+        d3Timeline.style.display = "block";
+        initTimeline();
+        d3Timeline.innerHTML = "";
+        initTimeline();
+    }
+    function updateRFPDates(result) {
+        // Call CheckDateForColorChange for each label and date
+        CheckDateForColorChange("lblRFPCouncilMeeting", result.dtDate);
+        CheckDateForColorChange("lblRFPTERD", result.dtTemp1);
+        CheckDateForColorChange("lblRFPFirstReivew", result.dtTemp2);
+        CheckDateForColorChange("lblRFPPRD", result.dtTemp3);
+        CheckDateForColorChange("lblRFPLettersofIntent", result.dtTemp4);
+        CheckDateForColorChange("lblRFPReleaseRFP", result.dtTemp5);
+
+        CheckDateForColorChange("lblRFPReleaseRFP", result.dtDate2);
+        CheckDateForColorChange("lblRFPFBON", result.dtTemp6);
+        CheckDateForColorChange("lblRFPAPA", result.dtTemp7);
+        CheckDateForColorChange("lblCWOSR", result.dtTemp8);
+        CheckDateForColorChange("lblDRNI", result.dtTemp9);
+        CheckDateForColorChange("lblNHLBICCA", result.dtTemp10);
+
+    }
+    function updateRFPLabels(result) {
+        const labelIds = [
+            'lblRFPReleaseRFP',
+            'lblRFPFBON',
+            'lblRFPAPA',
+            'lblCWOSR',
+            'lblDRNI',
+            'lblNHLBICCA',
+            'lblRFPFirstReivew',
+            'lblRFPPRD',
+            'lblRFPLettersofIntent',
+            'numberOfDaysRFP',
+            'lblRFPCouncilMeeting',
+            'lblRFPTERD',
+        ];
+
+        labelIds.forEach(id => {
+            const element = document.getElementById(id);
+            if (element && result.hasOwnProperty(id)) {
+                element.textContent = result[id];
+            }
+        });
+    }
+
+    function updateRFADates(result) {
+        // Call CheckDateForColorChange for each label and date
         CheckDateForColorChange("lblCouncilMeeting", result.dtDate);
         CheckDateForColorChange("lblSummaryStatementsComplete", result.dtDate);
         CheckDateForColorChange("lblPeerReviewMeeting", result.dtTemp1);
         CheckDateForColorChange("lblApplicationReceiptDate", result.dtTemp2);
         CheckDateForColorChange("lblLettersOfIntent", result.dtTemp3);
         CheckDateForColorChange("lblNIHGuidePublication", result.dtTemp4);
-        //ChangeDatesByNumberOfDays(Convert.ToInt32("NumberOfDaysPub"));
+        // ChangeDatesByNumberOfDays(Convert.ToInt32("NumberOfDaysPub")); // Assuming this function is defined elsewhere
         CheckDateForColorChange("lblNIHGuidePublication", result.dtDate2);
         CheckDateForColorChange("lblIdeaForum", result.roundDate);
         CheckDateForColorChange("lblBeeMeeting", result.roundDate2);
         CheckDateForColorChange("lblNHLBICouncilConceptClearance", result.roundDate3);
         CheckDateForColorChange("lblROSubmitsToNIHGuide", result.dtTemp5);
-        CheckDateForColorChange("lblMemo3", result.dtTemp6)
+        CheckDateForColorChange("lblMemo3", result.dtTemp6);
         CheckDateForColorChange("lblSubmitDERADraft", result.dtTemp7);
         CheckDateForColorChange("lblConsultWithReviewBranch", result.dtTemp8);
         CheckDateForColorChange("lblMemo2", result.dtTemp8);
-
-        updateRFALabels(result);
-        // Example usage:
-        xmlDoc = result.xmlDoc;
-
-
-        xmlDoc = xmlDoc.split(',');
-        const d3Timeline = document.getElementById('d3Timeline');
-        d3Timeline.innerHTML = "";
-        initTimeline();
-
-
-        d3Timeline.style.display = "block";
-
-
-
     }
+
+    function updateUIForRFA() {
+
+        // Check if the selected value of ddlContractType is "RFA"
+        if (ddlContractType.value === "RFA") {
+            // Show pnlBox2 and update lblStep3 text
+            pnlBox2.style.display = "block";  // Assuming the default state is hidden
+            lblStep3.textContent = "Select Anticipated Council";
+
+            // Set session storage for contract type
+            //sessionStorage.setItem("contractType", "RFA");
+
+            // Show pnlBox3 and hide pnlBox5
+            pnlBox3.style.display = "block";  // Assuming the default state is hidden
+            pnlBox5.style.display = "none";  // Assuming the default state is visible
+
+            // Check if both dropDownList1 and dropDownList2 have selected values
+            if (dropDownList1.value !== "" && dropDownList2.value !== "") {
+                // Show PrintRFA and hide PrintRFAInactive
+                printRFA.style.display = "block";  // Assuming the default state is hidden
+                printRFAInactive.style.display = "none";  // Assuming the default state is visible
+            } else {
+                // Hide PrintRFA and show PrintRFAInactive
+                printRFA.style.display = "none";  // Assuming the default state is visible
+                printRFAInactive.style.display = "block";  // Assuming the default state is hidden
+            }
+        }
+        else if (ddlContractType.value === "RFP") {
+            pnlBox2.style.display = 'block';
+            lblStep3.textContent = "Select Anticipated Quarter for Secondary Review";
+
+            // Assuming you're using session storage to simulate Session state
+            //sessionStorage.setItem("contractType", "RFP");
+
+            pnlBox3.style.display = 'none';
+            pnlBox5.style.display = 'block';
+
+            if (dropDownList1.value !== "" && dropDownList2.value !== "") {
+                printRFP.style.display = 'block';
+                printRFPInactive.style.display = 'none';
+            } else {
+                printRFP.style.display = 'none';
+                printRFPInactive.style.display = 'block';
+            }
+        }
+        else {
+            pnlBox2.style.display = 'none';
+            pnlBox3.style.display = 'none';
+            pnlBox5.style.display = 'none';
+            // Session["contractType"] = "";
+        }
+    }
+
     function updateRFALabels(result) {
         const labelIds = [
             'lblCouncilMeeting',
