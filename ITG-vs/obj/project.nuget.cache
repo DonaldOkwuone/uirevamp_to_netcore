@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KrlDgKYjQf1ILboTKhiqFpz72nCBjMPhM/eKQHn7mlfNJQk7fM29+X+9YW8k6HNlMmUSlm0zQrZ60xylo3d+zw==",
+  "dgSpecHash": "D8u+CCHT0CN+xP0KlWg/lgLoyz+YLoazIBkb8JLrmfDt0NfV8c6WDeVBzdtH6g4G88YjgpVTufT+d/s0zVh28A==",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.6\\microsoft.visualstudio.azure.containers.tools.targets.1.19.6.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore\\6.6.2\\swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.6.2\\swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.6.2\\swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",
