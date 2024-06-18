@@ -2,3 +2,16 @@
 @model ITG_vs.Pages.PrintModel
 @{
 }
+
+
+
+<div id="content" class="col-md-10">
+    <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+    <br />
+    <div id="d3Timeline" runat="server" visible="false">
+        <script type="text/javascript" id="initParams">
+            var xmlDoc = '<%=BuildInitParams()%>'.split(',');
+        </script>
+        <script type="text/javascript" src="Scripts/mainTimeline.js"></script>
+    </div>
+</div>

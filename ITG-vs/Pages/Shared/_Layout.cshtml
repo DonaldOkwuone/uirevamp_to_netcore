@@ -61,7 +61,7 @@
         });
 
         function redirectHome() {
-            window.location.href = "Default.aspx";
+            window.location.href = "index";
         }
     </script>
 
@@ -131,12 +131,128 @@
     <script type="text/javascript">@Settings.Get("AnalyticsFooterScript")</script>
     @await RenderSectionAsync("Scripts", required: false)
 
-   
-   
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; ITG
+
+    <div id="itgSystemRequirementsModal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="itgSystemRequirementsModalLabel" aria-describedby="itgSystemRequirementsModalDescription">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="itgSystemRequirementsModalLabel" class="modal-title">System Requirements</h5>
+                </div>
+                <div id="itgSystemRequirementsModalDescription">
+                    <div class="modal-body">
+                        <div class="justify-content-center align-items-center">
+                            <h2>ITG System Requirements</h2>
+                            <h4>ITG Supported Web Browsers</h4>
+                            <br />
+                            Click to view the list of <a href="https://www.nhlbi.nih.gov/digital/browsers.html" target="_blank">supported browsers.</a>
+                            <hr>
+                            <h4>Internet Explorer Compatibility Mode Settings</h4>
+                            <p>
+                                To ensure the full functionality of NHLBI applications using Internet Explorer, please use the following guidance
+                                to turn off compatibility mode.
+                            </p>
+                            <br />
+                            1. In the browser, select Tools > Compatibility View Settings to open the settings window.<br />
+                            <br />
+                            <p>
+                                <img src="~/img/compatibility_1.png" alt="Compatibility Mode On">
+                            </p>
+                            <br />
+                            2. Uncheck the boxes "Display all websites in Compatibility View" and "Display intranet sites in Compatibility View" if they are not
+                            already unchecked.<br />
+                            <br />
+                            <p>
+                                <img src="~/img/compatibility_2_highlight.png" alt="Compatibility Mode Off">
+                            </p>
+                            <br />
+                            3. Close the settings window and restart your browser before returning to the web application.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" aria-label="OK">OK</button>
+                        <span class="sr-only">button</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <div id="itgReleaseNotesModal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="itgReleaseNotesModalLabel" aria-describedby="itgReleaseNotesModalDescription">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="itgReleaseNotesModalLabel" class="modal-title">Release Notes</h5>
+                </div>
+                <div id="itgReleaseNotesModalDescription">
+                    <div class="modal-body">
+                        <div class="justify-content-center align-items-center">
+                            <h2 class="releaseHeader">ITG Release Notes</h2>
+                            <h3 class="releaseHeader">Release 3.3.0</h3>
+                            <br>
+                            <h4>Welcome</h4>
+                            <ul>
+                                <li>Revised and shortened text using a clickable "i" to toggle additional details.</li>
+                            </ul>
+                            <br>
+                            <h4>Initiative Types: Grants and Contract</h4>
+                            <ul>
+                                <li>Removed slider functionality.</li>
+                                <li>Print icon activated after selection of Anticipated Council date.</li>
+                                <li>Added PDF preview pop-up of summary table and graphical timeline.</li>
+                                <li>All past milestone deadlines appear red on PDF preview pop-up.</li>
+                                <li>Removed email icons that enabled the timeline to be sent by email.</li>
+                                <li>Added new contact details for the Office of FOA Development and Referral with a link to an Outlook email template on the PDF preview pop-up.</li>
+                                <li>Removed zoom functionality on graphical timeline.</li>
+                            </ul>
+                            <br>
+                            <h4>Initiative Type: Grants</h4>
+                            <ul>
+                                <li>Added two new initiative types (PAR, PAS).</li>
+                                <li>Adjusted Anticipated Council dates for selection to reflect actual decision-making session dates. </li>
+                                <li>Added new pre-concept clearance milestones: Idea Forum, Round 1 and Round 2, and BEE Meeting.</li>
+                                <li>Adjusted existing milestone labels for better clarity and precision.</li>
+                                <li>New milestone descriptions displayed using clickable "i".</li>
+                                <li>New dwell time default of 60 days in manual entry box, with possible range of 60-120 days.</li>
+                                <li>New milestone labels and date format on graphical timeline.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" aria-label="OK">OK</button>
+                        <span class="sr-only">button</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="aboutITGModal" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="aboutITGModalLabel" aria-describedby="aboutITGModalDescription">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="aboutITGModalLabel" class="modal-title">About ITG</h5>
+                </div>
+                <div id="aboutITGModalDescription">
+                    <div class="modal-body">
+                        <div class="justify-content-center align-items-center">
+                            <h2>ITG</h2>
+                            <h3>Initiative Timeline Generator</h3>
+                            <br>
+                            <h3>Version 3.3.1</h3>
+                            <br>
+                            <div>Initiative Timeline Generator is intended to aid in drafting timelines for RFA/RFPs based on specific fiscal year targets and criteria.</div>
+                            <br>
+                            <img src="images/NHLBI_Standard_Logo_Black.png" alt="NHLBI logo and HHS logo" style="width:400px;height:100px">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" data-dismiss="modal" aria-label="OK">OK</button>
+                        <span class="sr-only">button</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
