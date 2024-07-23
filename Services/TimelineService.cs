@@ -84,7 +84,67 @@ namespace Services
 
         public string OutputHtmlTable(XmlDocument xmlDoc)
         {
-            throw new NotImplementedException();
+            int intRowCtr = 0;
+            StringBuilder sbBody = new StringBuilder();
+            sbBody.Append("<table class='table' summary='Layout table to output a timeline.' cellpadding='5' cellspacing='0' width: 660px;'>");
+            foreach (XmlElement node in xmlDoc.GetElementsByTagName("event"))
+            {
+                sbBody.Append("<tr>");
+                if (intRowCtr == 0)
+                {
+                    sbBody.Append("<td scope='row' style='vertical-align: middle; border-width:thin 0px thin thin; border-top-style:solid; border-bottom-style:solid; border-left-style:solid;'border-left-color: #cccccc; border-top-color: #cccccc; border-bottom-color: #cccccc;'>");
+                }
+                else
+                {
+                    sbBody.Append("<td scope='row' style='vertical-align: middle; border-left-width: thin; border-bottom-width: thin; border-top-width: 0px; border-right-width: 0px; border-left-style: solid; border-bottom-style: solid;'border-left-color: #cccccc; border-bottom-color: #cccccc;'>");
+                }
+                sbBody.Append(@"<div>");
+                if (node.Attributes[0].Value.StartsWith("Memo"))
+                {
+                    //sbBody.Append(ConfigurationManager.AppSettings[node.Attributes[0].Value] + " (" + node.Attributes[0].Value + ")");
+                    sbBody.Append(Settings.Get(node.Attributes[0].Value) + " (" + node.Attributes[0].Value + ")");
+                }
+                else
+                {
+                    sbBody.Append(node.Attributes[0].Value);
+                }
+                sbBody.Append("</div></td>");
+
+                if (intRowCtr == 0)
+                {
+                    sbBody.Append("<td class='dates' style='vertical-align: middle; border-width: thin; border-style: solid; border-color: #cccccc;'>");
+                }
+                else
+                {
+                    sbBody.Append("<td class='dates' style='vertical-align: middle; border-width: thin; border-top-width: 0px; border-style: solid; border-color: #cccccc;'>");
+
+                }
+
+                try
+                {
+                    if (node.Attributes[0].Value.Equals("Peer Review Meeting1"))
+                    {
+                        sbBody.Append(CheckDate.MonthYear(Convert.ToDateTime(node.Attributes[1].Value)));
+                    }
+                    else if (DateTime.Compare(DateTime.Now, Convert.ToDateTime(node.Attributes[1].Value)) > 0)
+                    {
+                        sbBody.Append("<span style='color: red'>" + node.Attributes[2].Value + "</span>");
+                    }
+                    else
+                    {
+                        sbBody.Append(node.Attributes[2].Value);
+                    }
+                }
+                catch
+                {
+                    sbBody.Append("nbsp;");
+                }
+                sbBody.Append("</td>");
+                sbBody.Append("</tr>");
+                intRowCtr++;
+            }
+            sbBody.Append("</table>");
+            return sbBody.ToString();
         }
 
         public void Print(XmlDocument xmlDoc, string tblPrint)

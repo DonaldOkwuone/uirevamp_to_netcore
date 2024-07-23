@@ -13,7 +13,14 @@ builder.Services.AddScoped<ITimelineService, TimelineService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 var settings = builder.Configuration.GetSection("Configs").GetChildren().ToDictionary(x => x.Key, x => x.Value);
 Settings.Initiate(settings);
+builder.Services.AddDistributedMemoryCache();
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,7 +40,7 @@ app.UseSwaggerUI();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseSession();
 app.MapRazorPages();
 app.MapControllers();
 // Optionally, map default route for MVC

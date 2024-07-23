@@ -1,5 +1,6 @@
 ﻿using ITG_vs.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Services.interfaces;
 using Services.utils;
 using System.Text;
@@ -211,6 +212,8 @@ namespace ITG_vs.Controllers
                         //NumberOfDaysPub.Text = "60";
                         ChangeDatesByNumberOfDays(Convert.ToInt32(councilMeeting.NumberOfDaysPub), fetchCouncilRequest);
                         councilMeeting.xmlDoc = BuildInitParamsLocal(fetchCouncilRequest, xmlTimeline);
+                        HttpContext.Session.SetString("xmlTimeline", JsonConvert.SerializeObject(xmlTimeline));
+
                         //ChangeDatesByNumberOfDays(Convert.ToInt32(NumberOfDaysPub.Text));
                         //Initialize timeline data, make timeline visible
                         //ClientScript.RegisterStartupScript(GetType(), "hwa", "initTimeline();", true);
@@ -272,6 +275,7 @@ namespace ITG_vs.Controllers
                         //ClientScript.RegisterStartupScript(GetType(), "hwa", "initTimeline();", true);
                         //d3Timeline.Visible = true;
                         councilMeeting.xmlDoc = BuildInitParamsLocal(fetchCouncilRequest, xmlTimelineRFP);
+                        HttpContext.Session.SetString("xmlTimelineRFP", JsonConvert.SerializeObject(xmlTimelineRFP));
 
                     }
                 }

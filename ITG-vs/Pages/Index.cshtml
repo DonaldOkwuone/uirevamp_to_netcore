@@ -719,14 +719,13 @@
             updateRFADates(result);
             updateRFALabels(result);
             updateUIForRFA();
-            // Example usage:
+            // Example usage:           
             refreshTimelineGragh(result);
         } else if (ddlContractType.value === 'RFP') {
 
             console.log("running RFP");
             updateRFPDates(result);
-            updateRFPLabels(result);
-
+            updateRFPLabels(result);            
             refreshTimelineGragh(result);
 
         }
@@ -737,12 +736,13 @@
     function refreshTimelineGragh(result){
         xmlDoc = result.xmlDoc;
         xmlDoc = xmlDoc.split(',');
-        const d3Timeline = document.getElementById('d3Timeline');
+     
         d3Timeline.style.display = "block";
         initTimeline();
         d3Timeline.innerHTML = "";
         initTimeline();
     }
+
     function updateRFPDates(result) {
         // Call CheckDateForColorChange for each label and date
         CheckDateForColorChange("lblRFPCouncilMeeting", result.dtDate);

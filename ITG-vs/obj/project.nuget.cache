@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KrlDgKYjQf1ILboTKhiqFpz72nCBjMPhM/eKQHn7mlfNJQk7fM29+X+9YW8k6HNlMmUSlm0zQrZ60xylo3d+zw==",
+  "dgSpecHash": "O2q7REgB/bpnqlE8dEBGS+KjDEyxhj9VFj3DxqxzJ1icoV7l51+WQreDHQGiJ9C+W3tbWa0eHLRZ/4LkBjZzrg==",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\source\\repos\\ITG_upgraded\\ITG-vs\\ITG.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore\\6.6.2\\swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.6.2\\swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.6.2\\swashbuckle.aspnetcore.swaggergen.6.6.2.nupkg.sha512",

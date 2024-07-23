@@ -2,16 +2,75 @@
 @model ITG_vs.Pages.PrintModel
 @{
 }
-
+@section css {
+    <link rel="stylesheet" type="text/css" href="~/css/timelineStyles.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/tableStyles.css" />
+}
 
 
 <div id="content" class="col-md-10">
-    <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+    <div id="PlaceHolder1" ></div>
     <br />
-    <div id="d3Timeline" runat="server" visible="false">
-        <script type="text/javascript" id="initParams">
-            var xmlDoc = '<%=BuildInitParams()%>'.split(',');
-        </script>
-        <script type="text/javascript" src="Scripts/mainTimeline.js"></script>
+    <div id="d3Timeline" visible="false">
+       
     </div>
 </div>
+@section Scripts {
+    <script>
+        async function makePostRequest(url, data) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST', // Specify the HTTP method as POST
+                    headers: { 'Content-Type': 'application/json' }, // Set the content type header
+                    body: JSON.stringify(data), // Convert data to JSON string for the body
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const responseData = await response.json(); // Parse the JSON response
+                // const responseData = response; // Parse the JSON response
+                return responseData; // Return the parsed data
+            } catch (error) {
+                console.error('Error:', error);
+                return null; // Handle errors gracefully (e.g., return null or throw a specific error)
+            }
+        }
+
+
+        const url = '/api/printer/init-printer';
+        const data = "hello";
+        var xmlDoc = "";
+        var table = "";
+        var placeholder = document.getElementById("PlaceHolder1");
+        var d3Timeline = document.getElementById("d3Timeline");
+
+     
+        document.addEventListener('DOMContentLoaded', function () {
+           
+            makePostRequest(url, data)
+                .then(response => {
+                    console.log('Success:', response);
+                    table = response.result;
+                    xmlDoc = response.xml.split(',');;
+                    placeholder.innerHTML = table;
+
+
+                    d3Timeline.style.display = "block";
+                    initTimeline();
+                    d3Timeline.innerHTML = "";
+                    initTimeline();
+                    //print entire screen
+                    window.print();
+
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+         
+        });
+
+    </script>
+    <script type="text/javascript" src="~/js/mainTimeline.js"></script>
+}
