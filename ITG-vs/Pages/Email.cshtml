@@ -9,38 +9,93 @@
                 <strong>Send Email, ITG</strong>
             </h4>
         </div>
-        <div class="panelEmail-panel-body-container">
+        <form id="emailForm" class="panelEmail-panel-body-container">
             <div class="panel-body">
                 <p>An email containing the timeline generated will be sent to the Office of Grants Management. You will be copied.</p>
                 <p><span style="color: Red">*</span>: required field</p>
                 <br />
                 <span style="color: Red">*</span>
                 <label class="control-label" for="txtTitle">RFA/RFP title</label>
-                <input id="txtTitle" class="form-control" type="text" aria-label="Title" tabindex="1" width="190">
+                <input required id="txtTitle" class="form-control" type="text" aria-label="Title" tabindex="1" style="width:190px;" />
                 <!--   <asp:TextBox ID="txtTitle" class="form-control" aria-label="Title" runat="server" Width="190" TabIndex="1"></asp:TextBox> -->
 
                 <span style="color: Red">*</span>
                 <label class="control-label" for="txtName">Your name</label>
-                <input id="txtName" class="form-control" type="text" aria-label="Name" tabindex="2" width="190">
+                <input required id="txtName" class="form-control" type="text" aria-label="Name" tabindex="2" style="width:190px;" />
 
                 @* <asp:TextBox ID="txtName" class="form-control" runat="server" aria-label="Name" Width="190" TabIndex="2"></asp:TextBox> *@
 
                 <span style="color: Red">*</span>
                 <label class="control-label" for="txtEmail">Your email address</label>
-                <input id="txtEmail" class="form-control" type="text" aria-label="Email" tabindex="2" width="190">
+                <input required id="txtEmail" class="form-control" type="email" aria-label="Email" tabindex="2" style="width:190px;">
 
                 @* <asp:TextBox ID="txtEmail" class="form-control" runat="server" aria-label="Email" Width="190" TabIndex="3"></asp:TextBox> *@
             </div>
             <div class="clearfix"></div>
             <div class="panel-footer text-right">
-                <asp:Button ID="btnSend" class="btn btn-default" runat="server" Text="Send email" OnClick="btnSend_Click" CausesValidation="true" TabIndex="4" />&nbsp;&nbsp;&nbsp;
+                <button id="btnSend" class="btn btn-default" TabIndex="4">Send email</button>&nbsp;&nbsp;&nbsp;
                 <input type="button" class="btn btn-default" value="Cancel" onclick="history.go(-1);" tabindex="5" />
-                <asp:RequiredFieldValidator ID="rfvTitle" runat="server" ControlToValidate="txtTitle" ErrorMessage="RFA title is required" Display="none"></asp:RequiredFieldValidator>
-                <asp:RequiredFieldValidator ID="rfvName" runat="server" ControlToValidate="txtName" ErrorMessage="Name is required" Display="None"></asp:RequiredFieldValidator>
-                <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email address is required" Display="None"></asp:RequiredFieldValidator>
 
-                <asp:ValidationSummary ID="ValidationSummary1" runat="server" ShowMessageBox="true" ShowSummary="false" />
             </div>
-        </div>
+        </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        async function makePostRequest(url, data) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST', // Specify the HTTP method as POST
+                    headers: { 'Content-Type': 'application/json' }, // Set the content type header
+                    body: JSON.stringify(data), // Convert data to JSON string for the body
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const responseData = await response.json(); // Parse the JSON response
+                // const responseData = response; // Parse the JSON response
+                return responseData; // Return the parsed data
+            } catch (error) {
+                console.error('Error:', error);
+                return null; // Handle errors gracefully (e.g., return null or throw a specific error)
+            }
+        }
+
+        const url = '/api/email/send';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const emailForm = document.getElementById('emailForm');
+
+
+            emailForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                // Your custom form submission logic here
+
+                const txtTitle = document.getElementById('txtTitle').value;
+                const txtName = document.getElementById('txtName').value
+                const txtEmail = document.getElementById('txtEmail').value
+                const data = { txtTitle : txtTitle, txtName :txtName, txtEmail : txtEmail };
+
+                console.log(data);
+                makePostRequest(url, data).then(response => {
+                    console.log('Success:', response);
+                    if(response == null){
+                        alert("Please generate a Timeline.");
+                    }
+                    alert("email sent!");
+                })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert(error)
+                    });
+
+
+            });
+
+
+        });
+    </script>
+}

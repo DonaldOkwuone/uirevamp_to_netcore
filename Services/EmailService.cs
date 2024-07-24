@@ -13,7 +13,7 @@ namespace Services
 {
     public class EmailService : IEmailService
     {
-        private XmlDocument xmlTimeline;
+        public XmlDocument xmlTimeline;
         private readonly ITimelineService timelineService;
 
         public EmailService(ITimelineService timelineService)
@@ -73,28 +73,28 @@ namespace Services
             return sbBody.ToString();
         }
 
-        public void SendEmail(string email, string emailTitle)
+        public void SendEmail(string email, string emailTitle, XmlDocument xmlTimeline)
         {
-           
-                MailAddress from = new MailAddress("itg@nhlbi.nih.gov", "ITG (DO NOT REPLY)");
-                //MailAddress to = new MailAddress(ConfigurationManager.AppSettings["email"], "NHLBI Chief Review Branch");
-                MailAddress to = new MailAddress(Settings.Get("email"), "NHLBI Chief Review Branch");
-                MailAddress cc = new MailAddress(email);
-                //MailAddress cc = new MailAddress(txtEmail.Text);
-                //MailMessage message = new MailMessage(from, to);
-                MailMessage message = new MailMessage(from, cc);
-                //message.CC.Add(cc);
-                message.IsBodyHtml = true;
-                message.Subject = "Initiative Timeline: " + emailTitle;
-                //message.Body = this.EmailBody();
-                message.Body = this.GetEmailBody(emailTitle, emailTitle);
-                SmtpClient client = new SmtpClient(Settings.Get("mail_server"));
-                client.Send(message);
-           
-                //Session["msg"] = ex.Message.ToString();
-                //Session["url"] = "Default.aspx";
-                //Response.Redirect("Message.aspx");
-            
+            this.xmlTimeline = xmlTimeline ?? new XmlDocument();
+            MailAddress from = new MailAddress("itg@nhlbi.nih.gov", "ITG (DO NOT REPLY)");
+            //MailAddress to = new MailAddress(ConfigurationManager.AppSettings["email"], "NHLBI Chief Review Branch");
+            MailAddress to = new MailAddress(Settings.Get("email"), "NHLBI Chief Review Branch");
+            MailAddress cc = new MailAddress(email);
+            //MailAddress cc = new MailAddress(txtEmail.Text);
+            //MailMessage message = new MailMessage(from, to);
+            MailMessage message = new MailMessage(from, cc);
+            //message.CC.Add(cc);
+            message.IsBodyHtml = true;
+            message.Subject = "Initiative Timeline: " + emailTitle;
+            //message.Body = this.EmailBody();
+            message.Body = this.GetEmailBody(emailTitle, emailTitle);
+            SmtpClient client = new SmtpClient(Settings.Get("mail_server"));
+            client.Send(message);
+
+            //Session["msg"] = ex.Message.ToString();
+            //Session["url"] = "Default.aspx";
+            //Response.Redirect("Message.aspx");
+
         }
     }
 }

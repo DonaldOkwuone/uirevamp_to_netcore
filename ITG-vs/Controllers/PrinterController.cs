@@ -22,11 +22,14 @@ namespace ITG_vs.Controllers
         public IActionResult initPrinter([FromBody] string xmlDoc)
         {
             var xml = HttpContext.Session.GetString("xmlTimeline");
-
-
-            if (xmlDoc == null || xml == null)
+            if (xml == null)
             {
-                return BadRequest("not xml found!");
+                xml = HttpContext.Session.GetString("xmlTimelineRFP");
+            }
+
+            if (xml == null)
+            {
+                return BadRequest("Timeline not found!");
             }
             xmlTimeline = JsonConvert.DeserializeObject<XmlDocument>(xml);
             var tableText = this.PrintBody();
