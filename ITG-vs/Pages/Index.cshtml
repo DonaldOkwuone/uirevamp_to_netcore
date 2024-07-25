@@ -549,9 +549,9 @@
                 return response.json();
             })
             .then(data => {
-                console.log(data);
-                console.log(">>>>>>>>>>" + data);
-                console.log(">>>>>>>>>>" + data.publicationDays);
+                // console.log(data);
+                // console.log(">>>>>>>>>>" + data);
+                // console.log(">>>>>>>>>>" + data.publicationDays);
                 xmlDoc = data.xmlDoc
                 refreshTimelineGragh(data);
                 numberOfDaysPub.value = data.publicationDays;
@@ -609,7 +609,7 @@
                 })
                 .then(data => {
                     // Handle the data received from the second API call
-                    console.log(data);
+                    // console.log(data);
                     // You can add your logic here to process the data and update the UI accordingly
                     const DropDownList1 = document.getElementById('DropDownList1');
                     DropDownList1.innerHTML = '';
@@ -713,10 +713,10 @@
         //const apiEndpoint = `/api/Timeline/FilterCouncil?DropDownList2=${selectedValue}&DropDownList1=${DropDownList1}&ContractType=${ddlContractType}`;
 
         let result = await callFilterCouncilAPI();
-        console.log(ddlContractType.value);
-        console.log(selectedValue);
-        console.log(DropDownList1);
-        console.log('API call result callFilterCouncilAPI:', result);
+        // console.log(ddlContractType.value);
+        // console.log(selectedValue);
+        // console.log(DropDownList1);
+        // console.log('API call result callFilterCouncilAPI:', result);
         if (ddlContractType.value === 'RFA') {
             console.log("running RFA");
             updateRFADates(result);
@@ -846,11 +846,11 @@
             pnlBox5.style.display = 'block';
 
             if (dropDownList1.value !== "" && dropDownList2.value !== "") {
-                console.log("running RFP IF");
+                // console.log("running RFP IF");
                 printRFP.style.display = 'block';
                 printRFPInactive.style.display = 'none';
             } else {
-                console.log("running RFP ELSE");
+                // console.log("running RFP ELSE");
                 printRFP.style.display = 'none';
                 printRFPInactive.style.display = 'block';
             }
@@ -923,13 +923,13 @@
             DropDownList2Count: dropDownList2.options.length,
             ContractType: document.getElementById('ddlContractType').value
         };
-        console.log(fetchCouncilRequest);
+        // console.log(fetchCouncilRequest);
 
         // Convert the fetchCouncilRequest object to a query string
         var queryString = Object.keys(fetchCouncilRequest)
             .map(key => key + '=' + encodeURIComponent(fetchCouncilRequest[key]))
             .join('&');
-        console.log(queryString);
+        // console.log(queryString);
 
         try {
             // Make the HTTP GET request to the endpoint
@@ -961,12 +961,12 @@
             DropDownList2Count: document.getElementById('DropDownList2').options.length,
             ContractType: document.getElementById('ddlContractType').value  // You may need to provide a value for ContractType if necessary
         };
-        console.log(fetchCouncilRequest);
+        // console.log(fetchCouncilRequest);
         // Convert the fetchCouncilRequest object to a query string
         var queryString = Object.keys(fetchCouncilRequest)
             .map(key => key + '=' + encodeURIComponent(fetchCouncilRequest[key]))
             .join('&');
-        console.log(queryString);
+        // console.log(queryString);
 
         // Make the HTTP GET request to the endpoint
         fetch(`/api/timeline/fillmeetingdates?${queryString}`)
@@ -978,7 +978,7 @@
             })
             .then(data => {
                 // Handle the response data here
-                console.log(data);
+                // console.log(data);
                 data.forEach(item => {
                     const option = document.createElement('option');
                     option.value = item.value; // Assuming 'value' is the property for the option value
