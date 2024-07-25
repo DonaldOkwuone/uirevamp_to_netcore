@@ -76,22 +76,23 @@
             <div class="row ml-1">
                 <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
                     <p>
-                        <strong>Step four:</strong>
+                        <strong>Step four:</strong> Below are the initial timeline deadline dates for the Council date you've selected&nbsp;
                         <span>
-                            <span ID="lbl_step4" runat="server">
-                                Below are the initial timeline deadline dates for the Council date you've selected&nbsp;
-                                @* <asp:HyperLink runat="server" ID="PrintRFA" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
-                                <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
-                                </asp:HyperLink>
-                                <asp:Label ID="PrintRFAInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label> *@
-                                <a id="PrintRFA" href="print" aria-label="Print" target="_blank">
+                            <span style="text-align:right;" id="lbl_step4">
+                                <a style="text-align:right;" id="PrintRFA" href="print" aria-label="Print" target="_blank">
                                     <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
                                 </a>
                                 <span id="PrintRFAInactive"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true" title="Print"></i></span>
 
-
-                                </>
+                                @* <asp:HyperLink runat="server" ID="PrintRFA" aria-label="Print" NavigateUrl="~/Print.aspx" Target="_blank">
+                                <i class="fa fa-print fa-lg" title="Print" aria-hidden="true"></i>
+                                </asp:HyperLink>
+                                <asp:Label ID="PrintRFAInactive" runat="server"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></asp:Label> *@
+                             
                             </span>
+                           
+
+                        </span>
                     </p>
                     <table class="table" style="width: 100%; border: none;">
                         <tr>
@@ -344,12 +345,12 @@
                 <div class="col-auto" style="border: solid 1px #e3e3e3; padding: 15px; border-radius: 10px;">
                     <p>
                         <strong>Step four:</strong> Below are the initial timeline deadline dates for the secondary review date you have selected
-                        <span>
-                            <a id="PrintRFP" class="fa fa-print fa-lg" href="print" aria-label="Print" target="_blank">
-                                <span id="PrintRFPInactive">
-                                    <i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i>
-                                </span>
+                        <span style="text-align:right;">
+                            <a style="text-align:right;" id="PrintRFP" class="fa fa-print fa-lg" href="print" aria-label="Print" target="_blank">
                             </a>
+                            <span id="PrintRFPInactive">
+                                <i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i>
+                            </span>
                         </span>
                     </p>
                     <table class="table" style="width: 100%; border: none;">

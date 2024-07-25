@@ -29,10 +29,10 @@ namespace ITG_vs.Controllers
             {
                 return BadRequest("Timeline not found!");
             }
-            string xml = null; 
+            string xml = null;
             if (contractType == "RFA")
             {
-                 xml = HttpContext.Session.GetString("xmlTimeline") ?? HttpContext.Session.GetString("xmlTimelineRFP");
+                xml = HttpContext.Session.GetString("xmlTimeline") ?? HttpContext.Session.GetString("xmlTimelineRFP");
 
             }
             else if (contractType == "RFP")
