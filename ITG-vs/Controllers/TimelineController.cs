@@ -65,12 +65,14 @@ namespace ITG_vs.Controllers
             if (selectedContractType.Equals("RFA"))
             {
                 strPath = Path.Combine(env.WebRootPath, "xml", "RFA", "Initiatives.xml");
+                HttpContext.Session.SetString("contractType", "RFA");
+
                 //strPath = Server.MapPath("~/App_Data/RFA/Initiatives.xml");
             }
             else
             {
                 strPath = Path.Combine(env.WebRootPath, "xml", "RFP", "Initiatives.xml");
-
+                HttpContext.Session.SetString("contractType", "RFP");
                 //strPath = Server.MapPath("~/App_Data/RFP/Initiatives.xml");
             }
             try

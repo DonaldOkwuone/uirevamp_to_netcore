@@ -12,7 +12,7 @@ namespace ITG_vs.Controllers
     public class PrinterController : ControllerBase
     {
         private readonly ITimelineService timelineService;
-        private XmlDocument xmlTimeline { get; set; }
+        private XmlDocument? xmlTimeline { get; set; }
         public PrinterController(ITimelineService timelineService)
         {
             this.timelineService = timelineService;
@@ -21,10 +21,24 @@ namespace ITG_vs.Controllers
         [HttpPost]
         public IActionResult initPrinter([FromBody] string xmlDoc)
         {
-            var xml = HttpContext.Session.GetString("xmlTimeline");
-            if (xml == null)
+
+
+            var contractType = HttpContext.Session.GetString("contractType");
+
+            if (contractType == null)
             {
-                xml = HttpContext.Session.GetString("xmlTimelineRFP");
+                return BadRequest("Timeline not found!");
+            }
+            string xml = null; 
+            if (contractType == "RFA")
+            {
+                 xml = HttpContext.Session.GetString("xmlTimeline") ?? HttpContext.Session.GetString("xmlTimelineRFP");
+
+            }
+            else if (contractType == "RFP")
+            {
+                xml = HttpContext.Session.GetString("xmlTimelineRFP") ?? HttpContext.Session.GetString("xmlTimelineRFP");
+
             }
 
             if (xml == null)
