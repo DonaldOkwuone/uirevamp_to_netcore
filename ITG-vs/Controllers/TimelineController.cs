@@ -289,7 +289,7 @@ namespace ITG_vs.Controllers
 
         [Route("handlepublicationchangeofdate/{publicationDays}")]
         [HttpPost]
-        public IActionResult HandlePublicationChangeofDate([FromBody]FetchCouncilRequest fetchCouncilRequest, string publicationDays)
+        public IActionResult HandlePublicationChangeofDate([FromBody] FetchCouncilRequest fetchCouncilRequest, string publicationDays)
         {
             string days = string.Empty;
             FilterCouncil(fetchCouncilRequest);
@@ -621,7 +621,7 @@ namespace ITG_vs.Controllers
 
                     councilMeeting.lblNHLBICouncilConceptClearance = conceptClearanceText;
                     timelineService.EditDate(xmlTimeline, "NHLBI Council Concept Clearance", roundDates[3].ToShortDateString(), conceptClearanceText);
-                    councilMeeting.roundDate3= roundDates[3];
+                    councilMeeting.roundDate3 = roundDates[3];
                     //CheckDateForColorChange(lblNHLBICouncilConceptClearance, roundDates[3]);
 
                     dtTemp = CheckDate.SubtractMonth(dtDate, 1);
@@ -689,13 +689,13 @@ namespace ITG_vs.Controllers
                     councilMeeting.lblRFPFBON = dtTemp.ToShortDateString();
                     //lblRFPFBON.Text = dtTemp.ToShortDateString();
                     //CheckDateForColorChange(lblRFPFBON, dtTemp);
-                    councilMeeting.dtTemp6= dtTemp;
+                    councilMeeting.dtTemp6 = dtTemp;
                     timelineService.EditDate(xmlTimelineRFP, "FedBizOpps Notice", dtTemp.ToShortDateString());
 
                     dtTemp = CheckDate.SubtractMonth(dtDate, 1);
                     dtTemp = CheckDate.SubtractDays(dtTemp, 15);
                     dtTemp = CheckDate.AdjustRFPDate(dtTemp);
-                    councilMeeting.lblRFPAPA     = dtTemp.ToShortDateString();
+                    councilMeeting.lblRFPAPA = dtTemp.ToShortDateString();
                     //lblRFPAPA.Text = dtTemp.ToShortDateString();
                     //CheckDateForColorChange(lblRFPAPA, dtTemp);
                     councilMeeting.dtTemp7 = dtTemp;

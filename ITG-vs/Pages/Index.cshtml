@@ -345,8 +345,10 @@
                     <p>
                         <strong>Step four:</strong> Below are the initial timeline deadline dates for the secondary review date you have selected
                         <span>
-                            <a id="PrintRFP" href="print" aria-label="Print" target="_blank">
-                                <span id="PrintRFPInactive"><i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i></span>
+                            <a id="PrintRFP" class="fa fa-print fa-lg" href="print" aria-label="Print" target="_blank">
+                                <span id="PrintRFPInactive">
+                                    <i class="fa fa-print fa-lg disabled" title="Print" aria-hidden="true"></i>
+                                </span>
                             </a>
                         </span>
                     </p>
@@ -407,11 +409,11 @@
                             <td>
                                 <span Id="lblNumberODaysRFP" style="font-weight:bold"> Enter the number of days desired between the RFP release date and the proposal receipt date</span>
                                 @*style="font-weight: bold"></span><br />*@
-                                <input id="NumberOfDaysRFP" aria-label="NumberOfDays" style="width:36px;" value="30"/><br />
+                                <input id="NumberOfDaysRFP" aria-label="NumberOfDays" style="width:36px;" value="30" /><br />
                                 @*<asp:TextBox ID="NumberOfDaysRFP" runat="server" AutoPostBack="true" aria-label="NumberOfDays" Width="36" Text="30" OnTextChanged="RFPDays_TextChanged" /><br />*@
                                 @*<asp:Label ID="lblRFPError" runat="server" Visible="false" ForeColor="red" Font-Size="10px"></asp:Label>*@
                             </td>
-                           
+
                         </tr>
                         <tr>
                             <td style="font-weight: bold">
@@ -517,12 +519,12 @@
             handleDropdown2Change(this.value);
         });
         numberOfDaysPub.addEventListener('change', function () {
-           var result = validateNumberOfDaysAPI();
-            
+            var result = validateNumberOfDaysAPI();
+
         });
     });
 
-    function validateNumberOfDaysAPI(){
+    function validateNumberOfDaysAPI() {
 
         const fetchCouncilRequest = {
             dropDownList1: dropDownList1.value,           // replace with actual value
@@ -718,14 +720,15 @@
             console.log("running RFA");
             updateRFADates(result);
             updateRFALabels(result);
-            updateUIForRFA();
-            // Example usage:           
+            updateUIForRFAandRFP();
+            // Example usage:
             refreshTimelineGragh(result);
         } else if (ddlContractType.value === 'RFP') {
 
             console.log("running RFP");
             updateRFPDates(result);
-            updateRFPLabels(result);            
+            updateRFPLabels(result);
+            updateUIForRFAandRFP()
             refreshTimelineGragh(result);
 
         }
@@ -733,10 +736,10 @@
 
 
     }
-    function refreshTimelineGragh(result){
+    function refreshTimelineGragh(result) {
         xmlDoc = result.xmlDoc;
         xmlDoc = xmlDoc.split(',');
-     
+
         d3Timeline.style.display = "block";
         initTimeline();
         d3Timeline.innerHTML = "";
@@ -804,7 +807,7 @@
         CheckDateForColorChange("lblMemo2", result.dtTemp8);
     }
 
-    function updateUIForRFA() {
+    function updateUIForRFAandRFP() {
 
         // Check if the selected value of ddlContractType is "RFA"
         if (ddlContractType.value === "RFA") {
@@ -831,6 +834,7 @@
             }
         }
         else if (ddlContractType.value === "RFP") {
+            console.log("running RFP");
             pnlBox2.style.display = 'block';
             lblStep3.textContent = "Select Anticipated Quarter for Secondary Review";
 
@@ -841,9 +845,11 @@
             pnlBox5.style.display = 'block';
 
             if (dropDownList1.value !== "" && dropDownList2.value !== "") {
+                console.log("running RFP IF");
                 printRFP.style.display = 'block';
                 printRFPInactive.style.display = 'none';
             } else {
+                console.log("running RFP ELSE");
                 printRFP.style.display = 'none';
                 printRFPInactive.style.display = 'block';
             }
